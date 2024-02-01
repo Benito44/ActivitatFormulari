@@ -11,10 +11,11 @@
 	<div id="main" class="inline">
 		<div class="inline">
 			<h2>Factures SaPa</h2>
-			<button id='apuntar'>Recuperar</button>
 			<button id='pendents' style='margin-left:.5rem;'>Guardar</button>
 			<button id='eliminar' style='margin-left:.5rem;'>Nova factura</button><br><br>
-			<table>
+			<input type="file" id="fileInput">
+			<button id="importJSON">Importar JSON</button>
+			<table id="dataTable">
 				<thead>
 					<tr>
 						<th>Núm</th>
