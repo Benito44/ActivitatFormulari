@@ -4,8 +4,8 @@ function init() {}
 
 document.getElementById("tancar").addEventListener("click", reservaF);
 document.getElementById("tancar2").addEventListener("click", platsDiaF);
-document.getElementById("apuntar").addEventListener("click", reservaT);
-document.getElementById("pendents").addEventListener("click", platsDiaT);
+document.getElementById("pendents").addEventListener("click", reservaT);
+document.getElementById("eliminar").addEventListener("click", platsDiaT);
 
 const resum = document.getElementById("resum");
 const menu = document.getElementById("menu");
@@ -24,31 +24,7 @@ function platsDiaT() {
 };
 
 $(document).ready(init);
-
-	const profe = document.getElementById("profe");
-	for (let i = 0; i < profes.length; i++){
-		const option = document.createElement("option");
-		option.text = profes[i];
-		profe.appendChild(option);
-
-	}
-	const primer = document.getElementById("primer");
-	for (let i = 0; i < primers.length; i++){
-		const option = document.createElement("option");
-		option.text = primers[i];
-		primer.appendChild(option);
-
-	}
-	const segon = document.getElementById("segon");
-	for (let i = 0; i < segons.length; i++){
-		const option = document.createElement("option");
-		option.text = segons[i];
-		segon.appendChild(option);
-	}
 	
-document.getElementById("primer").addEventListener("change", primerPreu);
-document.getElementById("segon").addEventListener("change", segonPreu);
-
 function primerPreu(event) {
 
 	if (event.target.value == "" && document.getElementById("segon").value !== ""){
