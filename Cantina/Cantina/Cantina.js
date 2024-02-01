@@ -4,8 +4,8 @@ function init() {}
 
 document.getElementById("tancar").addEventListener("click", reservaF);
 document.getElementById("tancar2").addEventListener("click", platsDiaF);
-document.getElementById("pendents").addEventListener("click", reservaT);
-document.getElementById("eliminar").addEventListener("click", platsDiaT);
+document.getElementById("eliminar").addEventListener("click", reservaT);
+document.getElementById("pendents").addEventListener("click", platsDiaT);
 
 const resum = document.getElementById("resum");
 const menu = document.getElementById("menu");
