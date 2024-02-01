@@ -1,56 +1,12 @@
 "use strict";
 
-	const profes = [
-		"Josep Bassó",
-		"Montserrat Bermúdez",
-		"Josep Maria Boix",
-		"Josep Catà",
-		"Sílvia Fortuny",
-		"Cristina Gómez",
-		"Xavier Martín",
-		"José Moreno",
-		"Josep Oliveras",
-		"Manel Pérez",
-		"Ricard Pla",
-		"Joan Pou",
-		"Isaac Pulí",
-		"Albert Salse",
-		"Pere Sánchez",
-		"Cristina Soler",
-		"Robert Ventura",
-	];
-
-
-
-const primers = [
-	"Amanida catalana",
-	"Saltejat de verdures",
-	"Sopa minestrone",
-	"Crema de carabassa",
-	"Pèsols amb pernil",
-];
-
-const segons = [
-	"Macarrons",
-	"Canalons",
-	"Paella",
-	"Fideuà",
-	"Pollastre al curry",
-	"Llibrets de llom",
-	"Estofat de vedella",
-	"Lluç a la planxa",
-];
-
-const gracies = "<div class='especial'>MOLTES GRÀCIES!</div>";
-
-
-
 function init() {}
 
 document.getElementById("tancar").addEventListener("click", reservaF);
 document.getElementById("tancar2").addEventListener("click", platsDiaF);
 document.getElementById("apuntar").addEventListener("click", reservaT);
 document.getElementById("pendents").addEventListener("click", platsDiaT);
+
 const resum = document.getElementById("resum");
 const menu = document.getElementById("menu");
 

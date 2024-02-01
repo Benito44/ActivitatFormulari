@@ -40,17 +40,27 @@
 		<div class="centrat">
 			<form id="formulari">
 				<div id="tancar" class="tancar"><img src="close.svg"></div>
-				<h5>RESERVA</h5><br>
-				<select id="profe" name="profe"><option value="">--- Selecciona profe ---</option></select><br>
-				<input id="data" name="data" type="date"> <input id="hora" name="hora" type="time"><br><br>
-				Selecciona un primer i/o un segon (les postres estan incloses)<br>
-				<select id="primer" name="primer"><option value="">--- No vull primer ---</option></select>
-				<select id="segon" name="segon"><option value="">--- No vull segon ---</option></select><br><br>
-				Observacions:<br>
-				<textarea id="observacions" name="observacions"></textarea><br><br>
-				<strong>Total: <span id="total">0,00 €</span></strong><br><br>
-				<span id="error" class="error">Selecciona profe</span><br><br>
-				<button type="submit">Acceptar</button> <button type="reset">Cancel·lar</button>
+				<h5>Dades de la factura i del client</h5><br>
+				<label>Núm factura</label>
+				<input type="text" id="algo" disabled>
+				<label>Data factura</label>
+				<input type="date" id="algo">
+				<br></br>
+				<label>Pagada</label>
+				<input type="text" id="algo">
+				<label>NIF</label>
+				<input type="text" id="algo">
+				<label>Nom</label>
+				<input type="text" id="algo">
+				<label>Telèfon</label>
+				<input type="text" id="algo">
+				<label>E-mail</label>
+				<input type="text" id="algo">
+				<label>% Dte</label>
+				<input type="text" id="algo">
+				<label>% IVA</label>
+				<input type="text" id="algo">
+				<button id="tancar3">Guardar</button>
 			</form>
 		</div>
 	</dialog>
