@@ -1,0 +1,18 @@
+{
+    "factures": [
+      {
+        "Num": 1,
+        "Data": "2019-01-01",
+        "NIF": "12345678Z",
+        "Client": "Vaporeon",
+        "Telefon": "999999999",
+        "Email": "vaporeon@gmail.com",
+        "subtotal": 0,
+        "Dte": 9,
+        "Base I.": 0,
+        "IVA": 0,
+        "Total": 0,
+        "P": true
+      }
+    ]
+  }
