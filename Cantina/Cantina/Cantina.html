@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="ca">
-	poiuabspiufsijobfvbjbjvbsjkbjóbjobijòbij´`o
 <head>
 	<title>Cantina</title>
 	<meta charset="UTF-8" />
@@ -11,21 +10,26 @@
 <body>
 	<div id="main" class="inline">
 		<div class="inline">
-			<h2>Cantina Sa Palomera</h2>
-			<button id='apuntar'>Apunta'm!</button>
-			<button id='pendents' style='margin-left:.5rem;'>Plats per avui</button>
-			<button id='eliminar' style='float:right;'>Esborrar reserves passades</button><br><br>
+			<h2>Factures SaPa</h2>
+			<button id='apuntar'>Recuperar</button>
+			<button id='pendents' style='margin-left:.5rem;'>Guardar</button>
+			<button id='eliminar' style='margin-left:.5rem;'>Nova factura</button><br><br>
 			<table>
 				<thead>
 					<tr>
-						<th>Accions</th>
+						<th>Núm</th>
 						<th>Data</th>
-						<th>Hora</th>
-						<th>Profe</th>
-						<th>Primer</th>
-						<th>Segon</th>
-						<th>Preu</th>
-						<th>Observacions</th>
+						<th>NIF</th>
+						<th>Client</th>
+						<th>Telefon</th>
+						<th>E-mail</th>
+						<th>Subtotal</th>
+						<th>Dte</th>
+						<th>Base I.</th>
+						<th>IVA</th>
+						<th>Total</th>
+						<th>P</th>
+						<th>Acc</th>
 					</tr>
 				</thead>
 				<tbody></tbody>
@@ -53,9 +57,22 @@
 	<dialog id="resum" class="dialeg">
 		<div class="centrat">
 			<img id="tancar2" class="tancar" src="close.svg">
-			<h5>PLATS PER AVUI</h5>
+			<h5>Detall de la factura</h5>
+			<table>
+				<thead>
+					<tr>
+						<th>Codi</th>
+						<th>Article</th>
+						<th>Uni.</th>
+						<th>Preu</th>
+						<th>Subtotal</th>
+						<th>Acc</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
 			<p id="textresum"></p>
-			<button id="tancar3">Tancar</button>
+			<button id="tancar3">Guardar</button>
 		</div>
 	</dialog>
 	<div id="divPrint"></div>
