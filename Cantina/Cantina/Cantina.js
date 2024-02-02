@@ -1,55 +1,63 @@
 "use strict";
+class Factura {
+    constructor(Num, Data, NIF, Client, Telefon, Email, subtotal, Dte, Base_I, IVA, Total, P) {
+        this.Num = Num;
+        this.Data = Data;
+        this.NIF = NIF;
+        this.Client = Client;
+		this.Telefon = Telefon;
+        this.Email = Email;
+        this.subtotal = subtotal;
+		this.Dte = Dte;
+        this.Base_I = Base_I;
+        this.IVA = IVA;
+        this.Total = Total;
+		this.P = P;
+    }
 
-let json = JSON.parse(data);
-
-// Ahora puedes acceder a los datos en el JSON
-console.log(json.factures[0].Client);
-function init() {}
-class JSONTable {
-	constructor(tableId, fileInputId) {
-	  this.table = document.getElementById(tableId);
-	  this.fileInput = document.getElementById(fileInputId);
-	  this.fileInput.addEventListener('change', this.importJSON.bind(this));
-	}
-  
-	importJSON() {
-	  const file = this.fileInput.files[0];
-	  const reader = new FileReader();
-  
-	  reader.onload = (event) => {
-		const jsonData = JSON.parse(event.target.result);
-		this.renderTable(jsonData);
-	  };
-  
-	  reader.readAsText(file);
-	}
-  
-	renderTable(data) {
-	  const tbody = this.table.querySelector('tbody');
-	  tbody.innerHTML = '';
-	  if (Array.isArray(data)) {
-	  data.forEach(item => {
-		const row = document.createElement('tr');
-		row.innerHTML = `
-		  <td>${item.Num}</td>
-		  <td>${item.Data}</td>
-		  <td>${item.NIF}</td>
-		  <td>${item.Client}</td>
-		  <td>${item.Telefon}</td>
-		  <td>${item.Email}</td>
-		  <td>${item.subtotal}</td>
-		  <td>${item.Dte}</td>
-		  <td>${item['Base I.']}</td>
-		  <td>${item.IVA}</td>
-		  <td>${item.Total}</td>
-		  <td>${item.P}</td>
-		`;
-		tbody.appendChild(row);
-	  });
-	}
-  }
+    addToTable() {
+        // Añadir la factura a la tabla HTML
+        $("tbody").append(`
+            <tr>
+                <td>${this.Num}</td>
+                <td>${this.Data}</td>
+                <td>${this.NIF}</td>
+                <td>${this.Client}</td>
+				<td>${this.Telefon}</td>
+                <td>${this.Email}</td>
+                <td>${this.subtotal}</td>
+                <td>${this.Dte}</td>
+				<td>${this.Base_I}</td>
+                <td>${this.IVA}</td>
+                <td>${this.Total}</td>
+                <td>${this.P}</td>
+            </tr>
+        `);
+    }
 }
-  const jsonTable = new JSONTable('dataTable', 'fileInput');
+$(document).ready(function () {
+    $("#loadData").click(function() {
+        $("#fileInput").click(); // Al hacer clic en el botón, se activará el input de tipo archivo oculto
+    });
+
+    $("#fileInput").change(function(event) {
+        const file = event.target.files[0]; // Obtener el archivo seleccionado
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const data = JSON.parse(e.target.result); // Parsear el contenido del archivo JSON
+            // Crear instancias de la clase Factura y agregarlas a la tabla
+            data.forEach(item => {
+                const factura = new Factura(item.numero, item.data, item.client, item.total);
+                factura.addToTable();
+            });
+        };
+        reader.readAsText(file); // Leer el archivo como texto
+    });
+});
+
+function init() {}
   
   
   
