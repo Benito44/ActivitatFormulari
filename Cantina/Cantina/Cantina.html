@@ -3,9 +3,9 @@
 <head>
 	<title>Cantina</title>
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="Cantina.css">
+	<link rel="stylesheet" href="./Cantina.css">
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-	<script defer src="Cantina.js"></script>
+	<script defer src="./Cantina.js"></script>
 </head>
 <body>
 	<div id="main" class="inline">
@@ -42,15 +42,15 @@
 				<div id="tancar" class="tancar"><img src="close.svg"></div>
 				<h5>Dades de la factura i del client</h5><br>
 				<label>Núm factura</label>
-				<input type="text" id="algo" disabled>
+				<input type="text" id="numFactura" disabled>
 				<label>Data factura</label>
-				<input type="date" id="" autofocus>
+				<input type="date" id="dateFactura" autofocus>
 				<br></br>
 				<label>Pagada</label>
 				<input type="checkbox" id="pagada">
 				<br></br>
 				<label>NIF</label>
-				<input type="text" id="nif">
+				<input type="text" id="nif" pattern="\d{8}[A-Za-z]" title="Por favor, introduce un NIF válido con 8 dígitos seguidos de una letra">
 				<label>Nom</label>
 				<input type="text" id="algo">
 				<label for="telf">Telèfon</label>
@@ -58,9 +58,9 @@
 				<label>E-mail</label>
 				<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Por favor, introduce una dirección de correo electrónico válida">
 				<label>% Dte</label>
-				<input type="text" id="algo">
+				<input type="text" id="dte">
 				<label>% IVA</label>
-				<input type="text" id="algo">
+				<input type="text" id="iva">
 				<button id="tancar3">Guardar</button>
 			</form>
 		</div>
