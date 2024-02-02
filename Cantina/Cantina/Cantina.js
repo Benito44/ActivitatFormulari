@@ -37,14 +37,9 @@ class Factura {
         `);
     }
 }
-function createElement(tag, text, attributes) {
-    const element = document.createElement(tag);
-    if (text) {
-        element.textContent = text;
-    }
-    document.body.appendChild(element)
-    return element;
-}
+document.getElementById('imprimir').addEventListener('click', function() {
+    window.print();
+});
 
 // Afegeix el paràgraf al cos del document
 
