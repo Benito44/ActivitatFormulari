@@ -50,17 +50,17 @@
 				<input type="checkbox" id="pagada">
 				<br></br>
 				<label>NIF</label>
-				<input type="text" id="nif" pattern="\d{8}[A-Za-z]" title="Por favor, introduce un NIF válido con 8 dígitos seguidos de una letra">
+				<input type="text" id="nif" pattern="\d{8}[A-Za-z]" title="Si us plau, introdueix un NIF vàlid amb 8 dígits seguits d'una lletra">
 				<label>Nom</label>
-				<input type="text" id="algo">
+				<input type="text" id="nombre" pattern="[A-Za-z\s]+" title="Por favor, introduce solo letras y espacios">>
 				<label for="telf">Telèfon</label>
-				<input type="tel" id="telf" name="telf" pattern="\d{1,9}" title="Por favor, introduce un número de teléfono válido con un máximo de 9 dígitos">
+				<input type="tel" id="telf" name="telf" pattern="\d{1,9}" title="Si us plau, introdueix un número de telèfon vàlid amb un màxim de 9 dígits">
 				<label>E-mail</label>
-				<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Por favor, introduce una dirección de correo electrónico válida">
+				<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Si us plau, introdueix una adreça de correu electrònic vàlida">
 				<label>% Dte</label>
-				<input type="text" id="dte">
+				<input type="text" id="dte" pattern="^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$" title="Si us plau, introdueix un número vàlid entre 0 i 100">
 				<label>% IVA</label>
-				<input type="text" id="iva">
+				<input type="text" id="iva" pattern="^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$" title="Si us plau, introdueix un número vàlid entre 0 i 100">
 				<button id="tancar3">Guardar</button>
 			</form>
 		</div>
