@@ -1,50 +1,56 @@
 "use strict";
 
+let json = JSON.parse(data);
+
+// Ahora puedes acceder a los datos en el JSON
+console.log(json.factures[0].Client);
 function init() {}
-document.getElementById('importJSON').addEventListener('click', function() {
-	const fileInput = document.getElementById('fileInput');
-	
-	// Verificar si se ha seleccionado un archivo
-	if (fileInput.files.length === 0) {
-	  alert('Por favor selecciona un archivo JSON.');
-	  return;
+class JSONTable {
+	constructor(tableId, fileInputId) {
+	  this.table = document.getElementById(tableId);
+	  this.fileInput = document.getElementById(fileInputId);
+	  this.fileInput.addEventListener('change', this.importJSON.bind(this));
 	}
-	
-	const file = fileInput.files[0];
-	const reader = new FileReader();
   
-	reader.onload = function(event) {
-	  const jsonData = JSON.parse(event.target.result);
-	  renderTable(jsonData);
-	};
+	importJSON() {
+	  const file = this.fileInput.files[0];
+	  const reader = new FileReader();
   
-	reader.readAsText(file);
-  });
+	  reader.onload = (event) => {
+		const jsonData = JSON.parse(event.target.result);
+		this.renderTable(jsonData);
+	  };
   
-  function renderTable(data) {
-	const tbody = document.querySelector('#dataTable tbody');
-	tbody.innerHTML = '';
+	  reader.readAsText(file);
+	}
   
-	data.forEach(item => {
-	  const row = document.createElement('tr');
-	  row.innerHTML = `
-		<td>${item.Num}</td>
-		<td>${item.Data}</td>
-		<td>${item.NIF}</td>
-		<td>${item.Client}</td>
-		<td>${item.Telefon}</td>
-		<td>${item['E-mail']}</td>
-		<td>${item.Subtotal}</td>
-		<td>${item.Dte}</td>
-		<td>${item['Base I']}</td>
-		<td>${item.IVA}</td>
-		<td>${item.Total}</td>
-		<td>${item.P}</td>
-		<td>${item.Acc}</td>
-	  `;
-	  tbody.appendChild(row);
-	});
+	renderTable(data) {
+	  const tbody = this.table.querySelector('tbody');
+	  tbody.innerHTML = '';
+	  if (Array.isArray(data)) {
+	  data.forEach(item => {
+		const row = document.createElement('tr');
+		row.innerHTML = `
+		  <td>${item.Num}</td>
+		  <td>${item.Data}</td>
+		  <td>${item.NIF}</td>
+		  <td>${item.Client}</td>
+		  <td>${item.Telefon}</td>
+		  <td>${item.Email}</td>
+		  <td>${item.subtotal}</td>
+		  <td>${item.Dte}</td>
+		  <td>${item['Base I.']}</td>
+		  <td>${item.IVA}</td>
+		  <td>${item.Total}</td>
+		  <td>${item.P}</td>
+		`;
+		tbody.appendChild(row);
+	  });
+	}
   }
+}
+  const jsonTable = new JSONTable('dataTable', 'fileInput');
+  
   
   
 document.getElementById("tancar").addEventListener("click", reservaF);
