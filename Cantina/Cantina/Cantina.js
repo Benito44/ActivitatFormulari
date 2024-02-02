@@ -49,7 +49,7 @@ $(document).ready(function () {
             const data = JSON.parse(e.target.result); // Parsear el contenido del archivo JSON
             // Crear instancias de la clase Factura y agregarlas a la tabla
             data.forEach(item => {
-                const factura = new Factura(item.numero, item.data, item.client, item.total);
+                const factura = new Factura(item.Num, item.Data, item.NIF, item.Client,item.Telefon, item.Email, item.subtotal, item.Dte,item.Base_I, item.IVA, item.Total, item.P);
                 factura.addToTable();
             });
         };
