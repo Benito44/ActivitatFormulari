@@ -1,18 +1,41 @@
 [
+  {
+    "Num": 1,
+    "Data": "2019-01-01",
+    "NIF": "12345678Z",
+    "Client": "Vaporeon",
+    "Telefon": "999999999",
+    "Email": "vaporeon@gmail.com",
+    "subtotal": 0,
+    "Dte": 9,
+    "Base_I": 0,
+    "IVA": 0,
+    "Total": 0,
+    "P": true,
+    "articles": [
       {
-        "Num": 1,
-        "Data": "2019-01-01",
-        "NIF": "12345678Z",
-        "Client": "Vaporeon",
-        "Telefon": "999999999",
-        "Email": "vaporeon@gmail.com",
-        "subtotal": 0,
-        "Dte": 9,
-        "Base_I": 0,
-        "IVA": 0,
-        "Total": 0,
-        "P": true
+        "codi": "A001",
+        "article": "Producto 1",
+        "uni": 2,
+        "preu": 10,
+        "subtotal": 20
       },
+      {
+        "codi": "A002",
+        "article": "Producto 2",
+        "uni": 1,
+        "preu": 15,
+        "subtotal": 15
+      },
+      {
+        "codi": "A003",
+        "article": "Producto 3",
+        "uni": 3,
+        "preu": 8,
+        "subtotal": 24
+      }
+    ]
+  },
       {
         "Num": 2,
         "Data": "2019-01-01",

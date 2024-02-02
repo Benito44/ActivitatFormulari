@@ -1,70 +1,121 @@
-"use strict";
 class Factura {
-    constructor(Num, Data, NIF, Client, Telefon, Email, subtotal, Dte, Base_I, IVA, Total, P, Botons) {
+    constructor(Num, Data, NIF, Client, Telefon, Email, subtotal, Dte, Base_I, IVA, Total, P, Botons, articles) {
         this.Num = Num;
         this.Data = Data;
         this.NIF = NIF;
         this.Client = Client;
-		this.Telefon = Telefon;
+        this.Telefon = Telefon;
         this.Email = Email;
         this.subtotal = subtotal;
-		this.Dte = Dte;
+        this.Dte = Dte;
         this.Base_I = Base_I;
         this.IVA = IVA;
         this.Total = Total;
-		this.P = P;
-		this.Botons = Botons;
+        this.P = P;
+        this.Botons = Botons;
+        this.articles = articles ?? [];
     }
 
     addToTable() {
-        // Añadir la factura a la tabla HTML
-        $("tbody").append(`
+        // Añadir la factura a la tabla HTML de facturas
+        $("#dataTable tbody").append(`
             <tr>
                 <td>${this.Num}</td>
                 <td>${this.Data}</td>
                 <td>${this.NIF}</td>
                 <td>${this.Client}</td>
-				<td>${this.Telefon}</td>
+                <td>${this.Telefon}</td>
                 <td>${this.Email}</td>
                 <td>${this.subtotal}</td>
                 <td>${this.Dte}</td>
-				<td>${this.Base_I}</td>
+                <td>${this.Base_I}</td>
                 <td>${this.IVA}</td>
                 <td>${this.Total}</td>
                 <td>${this.P}</td>
-                <td><button class="boton1 btn" id="imprimir">Boton1</button><button class="boton1 btn" id="'+asignacion.id+'">Boton1</button><button class="boton1 btn" id="'+asignacion.id+'">Boton1</button><button class="boton1 btn" id="'+asignacion.id+'">Boton1</button></td>;
+                <td>
+                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="${this.Num}">Boton1</button>
+                    <button class="boton1 btn" id="${this.Num}">Boton2</button>
+                    <button class="boton1 btn" id="${this.Num}">Boton3</button>
+                </td>
             </tr>
         `);
     }
 }
-//document.getElementById('imprimir').addEventListener('click', function() {
-//    window.print();
-//});
 
-// Afegeix el paràgraf al cos del document
+class Articulo {
+    constructor(codi, article, uni, preu, subtotal) {
+        this.codi = codi;
+        this.article = article;
+        this.uni = uni;
+        this.preu = preu;
+        this.subtotal = subtotal;
+    }
 
+    addToTable() {
+        // Añadir el artículo a la tabla HTML de artículos
+        $("#articles tbody").append(`
+            <tr>
+                <td>${this.codi}</td>
+                <td>${this.article}</td>
+                <td>${this.uni}</td>
+                <td>${this.preu}</td>
+                <td>${this.subtotal}</td>
+                <td>Acción</td>
+            </tr>
+        `);
+    }
+}
 
 $(document).ready(function () {
     $("#loadData").click(function() {
-        $("#fileInput").click(); // Al hacer clic en el botón, se activará el input de tipo archivo oculto
+        $("#fileInput").click();
     });
 
     $("#fileInput").change(function(event) {
-        const file = event.target.files[0]; // Obtener el archivo seleccionado
+        const file = event.target.files[0];
         if (!file) return;
 
         const reader = new FileReader();
         reader.onload = function(e) {
-            const data = JSON.parse(e.target.result); // Parsear el contenido del archivo JSON
-            // Crear instancias de la clase Factura y agregarlas a la tabla
-            data.forEach(item => {
-				const factura = new Factura(item.Num, item.Data, item.NIF, item.Client,item.Telefon, item.Email, item.subtotal, item.Dte,item.Base_I, item.IVA, item.Total, item.P );
+            const data = JSON.parse(e.target.result);
+            data.forEach(facturaData => {
+                const factura = new Factura(
+                    facturaData.Num,
+                    facturaData.Data,
+                    facturaData.NIF,
+                    facturaData.Client,
+                    facturaData.Telefon,
+                    facturaData.Email,
+                    facturaData.subtotal,
+                    facturaData.Dte,
+                    facturaData.Base_I,
+                    facturaData.IVA,
+                    facturaData.Total,
+                    facturaData.P
+                );
                 factura.addToTable();
+                
+                if (facturaData.articles && Array.isArray(facturaData.articles)) {
+                    facturaData.articles.forEach(articuloData => {
+                        const articulo = new Articulo(
+                            articuloData.codi,
+                            articuloData.article,
+                            articuloData.uni,
+                            articuloData.preu,
+                            articuloData.subtotal
+                        );
+                        articulo.addToTable();
+                    });
+                }
             });
         };
-        reader.readAsText(file); // Leer el archivo como texto
+        reader.readAsText(file);
     });
 });
+
+// Resto del código...
+
 
 function init() {}
   
