@@ -3,9 +3,11 @@
 <head>
 	<title>Cantina</title>
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="Cantina.css">
-	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-	<script defer src="Cantina.js"></script>
+	<link rel="stylesheet" href="./lib/css/bootstrap.min.css" media="screen">
+	<link rel="stylesheet" href="./Cantina.css">
+	<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./lib/js/bootstrap.bundle.js"></script>
+	<script defer src="./Cantina.js"></script>
 </head>
 <body>
 	<div id="main" class="inline">
@@ -42,25 +44,25 @@
 				<div id="tancar" class="tancar"><img src="close.svg"></div>
 				<h5>Dades de la factura i del client</h5><br>
 				<label>Núm factura</label>
-				<input type="text" id="algo" disabled>
+				<input type="text" id="numFactura" disabled>
 				<label>Data factura</label>
-				<input type="date" id="" autofocus>
+				<input type="date" id="dateFactura" autofocus>
 				<br></br>
 				<label>Pagada</label>
 				<input type="checkbox" id="pagada">
 				<br></br>
 				<label>NIF</label>
-				<input type="text" id="nif">
+				<input type="text" id="nif" pattern="\d{8}[A-Za-z]" title="Si us plau, introdueix un NIF vàlid amb 8 dígits seguits d'una lletra">
 				<label>Nom</label>
-				<input type="text" id="algo">
+				<input type="text" id="nombre" pattern="[A-Za-z\s]+" title="Por favor, introduce solo letras y espacios">>
 				<label for="telf">Telèfon</label>
-				<input type="tel" id="telf" name="telf" pattern="\d{1,9}" title="Por favor, introduce un número de teléfono válido con un máximo de 9 dígitos">
+				<input type="tel" id="telf" name="telf" pattern="\d{1,9}" title="Si us plau, introdueix un número de telèfon vàlid amb un màxim de 9 dígits">
 				<label>E-mail</label>
-				<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Por favor, introduce una dirección de correo electrónico válida">
+				<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Si us plau, introdueix una adreça de correu electrònic vàlida">
 				<label>% Dte</label>
-				<input type="text" id="algo">
+				<input type="text" id="dte" pattern="^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$" title="Si us plau, introdueix un número vàlid entre 0 i 100">
 				<label>% IVA</label>
-				<input type="text" id="algo">
+				<input type="text" id="iva" pattern="^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$" title="Si us plau, introdueix un número vàlid entre 0 i 100">
 				<button id="tancar3">Guardar</button>
 			</form>
 		</div>
