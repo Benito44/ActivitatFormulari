@@ -1,6 +1,6 @@
 "use strict";
 class Factura {
-    constructor(Num, Data, NIF, Client, Telefon, Email, subtotal, Dte, Base_I, IVA, Total, P) {
+    constructor(Num, Data, NIF, Client, Telefon, Email, subtotal, Dte, Base_I, IVA, Total, P, Botons) {
         this.Num = Num;
         this.Data = Data;
         this.NIF = NIF;
@@ -13,6 +13,7 @@ class Factura {
         this.IVA = IVA;
         this.Total = Total;
 		this.P = P;
+		this.Botons = Botons;
     }
 
     addToTable() {
@@ -31,10 +32,23 @@ class Factura {
                 <td>${this.IVA}</td>
                 <td>${this.Total}</td>
                 <td>${this.P}</td>
+                <td><button class="boton1 btn" id="imprimir">Boton1</button><button class="boton1 btn" id="'+asignacion.id+'">Boton1</button><button class="boton1 btn" id="'+asignacion.id+'">Boton1</button><button class="boton1 btn" id="'+asignacion.id+'">Boton1</button></td>;
             </tr>
         `);
     }
 }
+function createElement(tag, text, attributes) {
+    const element = document.createElement(tag);
+    if (text) {
+        element.textContent = text;
+    }
+    document.body.appendChild(element)
+    return element;
+}
+
+// Afegeix el paràgraf al cos del document
+
+
 $(document).ready(function () {
     $("#loadData").click(function() {
         $("#fileInput").click(); // Al hacer clic en el botón, se activará el input de tipo archivo oculto
@@ -49,7 +63,7 @@ $(document).ready(function () {
             const data = JSON.parse(e.target.result); // Parsear el contenido del archivo JSON
             // Crear instancias de la clase Factura y agregarlas a la tabla
             data.forEach(item => {
-                const factura = new Factura(item.numero, item.data, item.client, item.total);
+				const factura = new Factura(item.Num, item.Data, item.NIF, item.Client,item.Telefon, item.Email, item.subtotal, item.Dte,item.Base_I, item.IVA, item.Total, item.P );
                 factura.addToTable();
             });
         };
