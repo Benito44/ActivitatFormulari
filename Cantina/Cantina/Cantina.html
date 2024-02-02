@@ -14,6 +14,7 @@
 		<div class="inline">
 			<h2>Factures SaPa</h2>
 			<button id='pendents' style='margin-left:.5rem;'>Guardar</button>
+			<div id="drop_zone">Arrossega arxius aquí</div>
 			<button id='eliminar' style='margin-left:.5rem;'>Nova factura</button><br><br>
 			<button id="loadData">Carregar Dades</button>
 			<input type="file" id="fileInput" style="display:none;" accept=".json">
@@ -55,7 +56,7 @@
 				<label>NIF</label>
 				<input type="text" id="nif" pattern="\d{8}[A-Za-z]" title="Si us plau, introdueix un NIF vàlid amb 8 dígits seguits d'una lletra">
 				<label>Nom</label>
-				<input type="text" id="nombre" pattern="[A-Za-z\s]+" title="Por favor, introduce solo letras y espacios">>
+				<input type="text" id="nombre" pattern="[A-Za-z\s]+" title="Si us plau, introdueix només lletres i espais">
 				<label for="telf">Telèfon</label>
 				<input type="tel" id="telf" name="telf" pattern="\d{1,9}" title="Si us plau, introdueix un número de telèfon vàlid amb un màxim de 9 dígits">
 				<label>E-mail</label>
