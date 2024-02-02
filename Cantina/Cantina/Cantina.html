@@ -44,19 +44,19 @@
 				<label>Núm factura</label>
 				<input type="text" id="algo" disabled>
 				<label>Data factura</label>
-				<input type="date" id="algo">
+				<input type="date" id="" autofocus>
 				<br></br>
 				<label>Pagada</label>
-				<input type="checkbox" id="algo">
+				<input type="checkbox" id="pagada">
 				<br></br>
 				<label>NIF</label>
-				<input type="text" id="algo">
+				<input type="text" id="nif">
 				<label>Nom</label>
 				<input type="text" id="algo">
-				<label>Telèfon</label>
-				<input type="text" id="algo">
+				<label for="telf">Telèfon</label>
+				<input type="tel" id="telf" name="telf" pattern="\d{1,9}" title="Por favor, introduce un número de teléfono válido con un máximo de 9 dígitos">
 				<label>E-mail</label>
-				<input type="text" id="algo">
+				<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Por favor, introduce una dirección de correo electrónico válida">
 				<label>% Dte</label>
 				<input type="text" id="algo">
 				<label>% IVA</label>
