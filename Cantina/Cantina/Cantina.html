@@ -17,7 +17,7 @@
 			<button id='eliminar' style='margin-left:.5rem;'>Nova factura</button><br><br>
 			<button id="loadData">Carregar Dades</button>
 			<input type="file" id="fileInput" style="display:none;" accept=".json">
-					<table id="dataTable">
+			<table id="dataTable">
 				<thead>
 					<tr>
 						<th>Núm</th>
@@ -35,7 +35,70 @@
 						<th>Action</th>
 					</tr>
 				</thead>
-				<tbody></tbody>
+				<tbody>
+            <tr>
+                <td>1</td>
+                <td>2019-01-01</td>
+                <td>12345678Z</td>
+                <td>Vaporeon</td>
+                <td>999999999</td>
+                <td>vaporeon@gmail.com</td>
+                <td>0</td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>true</td>
+                <td>
+                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="guardar">Boton1</button>
+                    <button class="boton1 btn" id="1">Boton2</button>
+                    <button class="boton1 btn" id="1">Boton3</button>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>2</td>
+                <td>2019-01-01</td>
+                <td>12345678Z</td>
+                <td>Vaporeon</td>
+                <td>999999999</td>
+                <td>vaporeon@gmail.com</td>
+                <td>0</td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>true</td>
+                <td>
+                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="guardar">Boton1</button>
+                    <button class="boton1 btn" id="2">Boton2</button>
+                    <button class="boton1 btn" id="2">Boton3</button>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>3</td>
+                <td>2019-01-01</td>
+                <td>12345678Z</td>
+                <td>Vaporeon</td>
+                <td>999999999</td>
+                <td>vaporeon@gmail.com</td>
+                <td>0</td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>true</td>
+                <td>
+                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="guardar">Boton1</button>
+                    <button class="boton1 btn" id="3">Boton2</button>
+                    <button class="boton1 btn" id="3">Boton3</button>
+                </td>
+            </tr>
+        </tbody>
 			</table>
 		</div>
 	</div>
@@ -68,31 +131,10 @@
 			</form>
 		</div>
 	</dialog>
-	<dialog id="resum" class="dialeg">
-		<div class="centrat">
-			<img id="tancar2" class="tancar" src="close.svg">
-			<h5>Detall de la factura</h5>
-			<table>
-				<thead>
-					<tr>
-						<th>Codi</th>
-						<th>Article</th>
-						<th>Uni.</th>
-						<th>Preu</th>
-						<th>Subtotal</th>
-						<th>Acc</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-			<p id="textresum"></p>
-			<button id="tancar3">Guardar</button>
-		</div>
-	</dialog>
 	<!-- DIALOGO PARA ARTICULOS -->
 	<dialog id="articles" class="dialeg">
 		<div class="centrat">
-			<img id="tancar3" class="tancar" src="close.svg">
+			<img id="tancar2" class="tancar" src="close.svg">
 			<h5>Detall de la factura</h5>
 			<table>
 				<thead>

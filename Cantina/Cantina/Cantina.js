@@ -102,7 +102,25 @@ $(document).ready(function () {
         };
         reader.readAsText(file);
     });
-
+    document.getElementById("tancar").addEventListener("click", reservaF);
+    document.getElementById("tancar2").addEventListener("click", platsDiaF);
+    document.getElementById("eliminar").addEventListener("click", reservaT);
+    
+    const resum = document.getElementById("articles");
+    const menu = document.getElementById("menu");
+    
+    function reservaF() {
+        menu.close();
+    };
+    function reservaT() {
+        menu.showModal();
+    };
+    function platsDiaF() {
+        resum.close();
+    };
+    function platsDiaT() {
+        resum.showModal();
+    };
     // Add event listener for the "guardar" button
     $(document).on("click", "#guardar", function() {
         // Get the invoice number associated with the clicked button
@@ -133,6 +151,8 @@ $(document).ready(function () {
             $("#articles tbody").empty();
 
         }
+        const resum = document.getElementById("articles");
+        resum.showModal();
     });
 
     // Add event listener for the "guardar" button inside the dialog form
@@ -183,26 +203,7 @@ function init() {}
   
   
   
-document.getElementById("tancar").addEventListener("click", reservaF);
-document.getElementById("tancar2").addEventListener("click", platsDiaF);
-document.getElementById("eliminar").addEventListener("click", reservaT);
-document.getElementById("pendents").addEventListener("click", platsDiaT);
 
-const resum = document.getElementById("resum");
-const menu = document.getElementById("menu");
-
-function reservaF() {
-	menu.close();
-};
-function reservaT() {
-	menu.showModal();
-};
-function platsDiaF() {
-	resum.close();
-};
-function platsDiaT() {
-	resum.showModal();
-};
 
 $(document).ready(init);
 	
@@ -243,3 +244,6 @@ function segonPreu(event) {
 		document.getElementById("total").innerHTML = "0,00 €";
 	}
 }
+document.getElementById('imprimir').addEventListener('click', function() {
+    window.print();
+});
