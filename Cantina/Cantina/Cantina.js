@@ -134,6 +134,44 @@ $(document).ready(function () {
 
         }
     });
+
+    // Add event listener for the "guardar" button inside the dialog form
+    $("#formulari").submit(function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Retrieve the form data
+        var numFactura = $("#numFactura").val();
+        var dateFactura = $("#dateFactura").val();
+        var pagada = $("#pagada").is(":checked");
+        var nif = $("#nif").val();
+        var nombre = $("#nombre").val();
+        var telf = $("#telf").val();
+        var email = $("#email").val();
+        var dte = $("#dte").val();
+        var iva = $("#iva").val();
+
+        // Create a new Factura instance with the form data
+        const factura = new Factura(
+            numFactura,
+            dateFactura,
+            nif,
+            nombre,
+            telf,
+            email,
+            0, // Assuming subtotal is calculated based on articles, initialize to 0
+            dte,
+            0, // Initialize Base_I to 0, as it might be calculated based on articles
+            iva,
+            0, // Assuming Total is calculated based on articles, initialize to 0
+            pagada,
+            null, // Assuming Botons is not required here, set to null
+            [] // No articles initially
+        );
+
+        // Add the factura to the table
+        factura.addToTable();
+    });
+
 });
 
 
