@@ -34,7 +34,7 @@ class Factura {
                 <td>${this.P}</td>
                 <td>
                     <button class="boton1 btn" id="imprimir">Imprimir</button>
-                    <button class="boton1 btn" id="${this.Num}">Boton1</button>
+                    <button class="boton1 btn" id="guardar">Boton1</button>
                     <button class="boton1 btn" id="${this.Num}">Boton2</button>
                     <button class="boton1 btn" id="${this.Num}">Boton3</button>
                 </td>
@@ -67,6 +67,8 @@ class Articulo {
     }
 }
 
+let data; // Declare the data variable in the global scope
+
 $(document).ready(function () {
     $("#loadData").click(function() {
         $("#fileInput").click();
@@ -78,7 +80,8 @@ $(document).ready(function () {
 
         const reader = new FileReader();
         reader.onload = function(e) {
-            const data = JSON.parse(e.target.result);
+            data = JSON.parse(e.target.result); // Store the loaded JSON data in the data variable
+            // Display the loaded data in the invoice table
             data.forEach(facturaData => {
                 const factura = new Factura(
                     facturaData.Num,
@@ -95,24 +98,45 @@ $(document).ready(function () {
                     facturaData.P
                 );
                 factura.addToTable();
-                
-                if (facturaData.articles && Array.isArray(facturaData.articles)) {
-                    facturaData.articles.forEach(articuloData => {
-                        const articulo = new Articulo(
-                            articuloData.codi,
-                            articuloData.article,
-                            articuloData.uni,
-                            articuloData.preu,
-                            articuloData.subtotal
-                        );
-                        articulo.addToTable();
-                    });
-                }
             });
         };
         reader.readAsText(file);
     });
+
+    // Add event listener for the "guardar" button
+    $(document).on("click", "#guardar", function() {
+        // Get the invoice number associated with the clicked button
+        var invoiceNumber = $(this).closest('tr').find('td:eq(0)').text();
+
+        // Find the corresponding invoice data
+        var invoiceData = data.find(facturaData => facturaData.Num === parseInt(invoiceNumber));
+
+        // Display articles for the selected invoice
+        if (invoiceData && invoiceData.articles && Array.isArray(invoiceData.articles)) {
+            // Clear existing articles before adding new ones
+            $("#articles tbody").empty();
+
+            // Loop through articles and add them to the table
+            invoiceData.articles.forEach(articuloData => {
+                const articulo = new Articulo(
+                    articuloData.codi,
+                    articuloData.article,
+                    articuloData.uni,
+                    articuloData.preu,
+                    articuloData.subtotal
+                );
+                articulo.addToTable();
+            });
+        } else {
+            // If no articles found for the selected invoice, display a message or handle it accordingly
+            alert("No se encontraron artículos para esta factura.");
+            $("#articles tbody").empty();
+
+        }
+    });
 });
+
+
 
 // Resto del código...
 

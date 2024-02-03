@@ -62,6 +62,15 @@
         "Base_I": 0,
         "IVA": 0,
         "Total": 0,
-        "P": true
+        "P": true,
+        "articles": [
+          {
+            "codi": "HOLA",
+            "article": "Producto 1",
+            "uni": 2,
+            "preu": 10,
+            "subtotal": 20
+          }
+        ]
       }
     ]
