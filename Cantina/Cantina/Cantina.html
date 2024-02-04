@@ -50,7 +50,7 @@
                 <td>0</td>
                 <td>true</td>
                 <td>
-                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="imprimir-${this.Num}">Imprimir</button>
                     <button class="boton1 btn" id="guardar">Boton1</button>
                     <button class="boton1 btn" id="1">Boton2</button>
                     <button class="boton1 btn" id="1">Boton3</button>
@@ -71,7 +71,7 @@
                 <td>0</td>
                 <td>true</td>
                 <td>
-                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+					<button class="boton1 btn" id="imprimir-${this.Num}">Imprimir</button>
                     <button class="boton1 btn" id="guardar">Boton1</button>
                     <button class="boton1 btn" id="2">Boton2</button>
                     <button class="boton1 btn" id="2">Boton3</button>
@@ -92,7 +92,7 @@
                 <td>0</td>
                 <td>true</td>
                 <td>
-                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="imprimir-${this.Num}">Imprimir</button>
                     <button class="boton1 btn" id="guardar">Boton1</button>
                     <button class="boton1 btn" id="3">Boton2</button>
                     <button class="boton1 btn" id="3">Boton3</button>
@@ -147,12 +147,13 @@
 						<th>Acc</th>
 					</tr>
 				</thead>
-				<tbody></tbody>
+				<tbody id="editableData"></tbody>
 			</table>
 			<p id="textresum"></p>
 			<button id="tancar3">Guardar</button>
 		</div>
 	</dialog>
 	<div id="divPrint"></div>
+	
 </body>
 </html>

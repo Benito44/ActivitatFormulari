@@ -21,27 +21,44 @@ class Factura {
         $("#dataTable tbody").append(`
             <tr>
                 <td>${this.Num}</td>
-                <td>${this.Data}</td>
-                <td>${this.NIF}</td>
-                <td>${this.Client}</td>
-                <td>${this.Telefon}</td>
-                <td>${this.Email}</td>
-                <td>${this.subtotal}</td>
-                <td>${this.Dte}</td>
-                <td>${this.Base_I}</td>
-                <td>${this.IVA}</td>
-                <td>${this.Total}</td>
-                <td>${this.P}</td>
-                <td>
-                    <button class="boton1 btn" id="imprimir">Imprimir</button>
-                    <button class="boton1 btn" id="guardar">Boton1</button>
-                    <button class="boton1 btn" id="${this.Num}">Boton2</button>
-                    <button class="boton1 btn" id="${this.Num}">Boton3</button>
-                </td>
-            </tr>
-        `);
+                <td tabindex="0" contenteditable="true">${this.Data}</td>
+                <td tabindex="0" contenteditable="true">${this.NIF}</td>
+                <td tabindex="0" contenteditable="true">${this.Client}</td>
+                <td tabindex="0" contenteditable="true">${this.Telefon}</td>
+                <td tabindex="0" contenteditable="true">${this.Email}</td>
+                <td tabindex="0" contenteditable="true">${this.subtotal}</td>
+                <td tabindex="0" contenteditable="true">${this.Dte}</td>
+                <td tabindex="0" contenteditable="true">${this.Base_I}</td>
+                <td tabindex="0" contenteditable="true">${this.IVA}</td>
+                <td tabindex="0" contenteditable="true">${this.Total}</td>
+                <td tabindex="0" contenteditable="true">${this.P}</td>
+                <td class="editable" contenteditable="true">
+                <button class="boton1 btn imprimir-btn" data-num="${this.Num}">Imprimir</button>
+                <button class="boton1 btn" id="guardar">Boton1</button>
+                <button class="boton1 btn" id="${this.Num}">Boton2</button>
+                <button class="boton1 btn" id="${this.Num}">Boton3</button>
+            </td>
+        </tr>
+    `);
+
+        // Agregar el manejador de eventos para el botón de imprimir recién agregado
+        $(document).on('click', `#imprimir-${this.Num}`, function() {
+            window.print();
+        });
     }
 }
+
+$(document).ready(function () {
+    // Agregar evento de doble clic para hacer editables los campos en el diálogo de artículos
+    $(document).on('dblclick', '#editableData [tabindex="0"]', function () {
+        $(this).attr('contenteditable', true);
+    });
+
+    // Agregar evento de pérdida de foco para desactivar la edición al salir del campo
+    $(document).on('blur', '#editableData [tabindex="0"]', function () {
+        $(this).removeAttr('contenteditable');
+    });
+});
 
 class Articulo {
     constructor(codi, article, uni, preu, subtotal) {
@@ -56,11 +73,11 @@ class Articulo {
         // Añadir el artículo a la tabla HTML de artículos
         $("#articles tbody").append(`
             <tr>
-                <td>${this.codi}</td>
-                <td>${this.article}</td>
-                <td>${this.uni}</td>
-                <td>${this.preu}</td>
-                <td>${this.subtotal}</td>
+                <td tabindex="0" contenteditable="true">${this.codi}</td>
+                <td tabindex="0" contenteditable="true">${this.article}</td>
+                <td tabindex="0" contenteditable="true">${this.uni}</td>
+                <td tabindex="0" contenteditable="true">${this.preu}</td>
+                <td tabindex="0" contenteditable="true">${this.subtotal}</td>
                 <td>Acción</td>
             </tr>
         `);
@@ -244,6 +261,29 @@ function segonPreu(event) {
 		document.getElementById("total").innerHTML = "0,00 €";
 	}
 }
-document.getElementById('imprimir').addEventListener('click', function() {
+
+$(document).ready(function() {
+    // Manejador de eventos para el doble clic en elementos con la clase "editable"
+    $(document).on('dblclick', '.editable', function() {
+        // Al hacer doble clic, convertir el elemento en editable
+        $(this).attr('contenteditable', true);
+    });
+
+    // Manejador de eventos para el cambio en elementos con la clase "editable"
+    $(document).on('input', '.editable', function() {
+        // Puedes realizar acciones adicionales al detectar un cambio en el contenido editable
+        console.log('Contenido cambiado:', $(this).text());
+    });
+
+    // Manejador de eventos para perder el foco en elementos con la clase "editable"
+    $(document).on('blur', '.editable', function() {
+        // Al perder el foco, desactivar la edición
+        $(this).removeAttr('contenteditable');
+    });
+});
+
+
+// Cambia el manejador de eventos para todos los botones de imprimir
+$("[id^='imprimir-']").on('click', function() {
     window.print();
 });
