@@ -78,7 +78,12 @@ class Articulo {
                 <td tabindex="0" contenteditable="true">${this.uni}</td>
                 <td tabindex="0" contenteditable="true">${this.preu}</td>
                 <td tabindex="0" contenteditable="true">${this.subtotal}</td>
-                <td>Acción</td>
+                <td>
+                <button class="boton1 btn imprimir-btn" data-num="${this.Num}">Imprimir</button>
+                <button class="boton1 btn" id="guardar">Boton1</button>
+                <button class="boton1 btn" id="${this.Num}">Boton2</button>
+                <button class="boton1 btn" id="${this.Num}">Boton3</button>
+                </td>
             </tr>
         `);
     }
