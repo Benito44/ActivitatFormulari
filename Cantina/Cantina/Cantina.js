@@ -87,6 +87,21 @@ class Articulo {
             </tr>
         `);
     }
+    addToAllArticlesTable() {
+        // Selecciona la tabla de todos los artículos
+        const tableBody = $("#allArticles2 tbody");
+
+        // Agrega una nueva fila con los datos del artículo a la tabla
+        tableBody.append(`
+            <tr>
+                <td>${this.codi}</td>
+                <td>${this.article}</td>
+                <td>${this.uni}</td>
+                <td>${this.preu}</td>
+                <td>${this.subtotal}</td>
+            </tr>
+        `);
+    }
 }
 
 let data; // Declare the data variable in the global scope
@@ -102,7 +117,42 @@ $(document).ready(function () {
 
         const reader = new FileReader();
         reader.onload = function(e) {
-            data = JSON.parse(e.target.result); // Store the loaded JSON data in the data variable
+            data = JSON.parse(e.target.result); // Almacena los datos JSON cargados en la variable 'data'
+        
+            // Limpiar la tabla de todos los artículos antes de agregar los nuevos artículos
+            $("#allArticles2 tbody").empty(); // Selecciona la tabla de todos los artículos
+        
+            // Array para almacenar todos los artículos
+            let allArticles = [];
+        
+            // Iterar sobre cada factura en los datos cargados
+            data.forEach(facturaData => {
+                // Verificar si la propiedad 'articles' está definida en el objeto facturaData
+                if (facturaData.articles && Array.isArray(facturaData.articles)) {
+                    // Iterar sobre cada artículo de la factura
+                    facturaData.articles.forEach(articuloData => {
+                        // Crear un nuevo objeto Articulo con los datos del artículo
+                        const articulo = new Articulo(
+                            articuloData.codi,
+                            articuloData.article,
+                            articuloData.uni,
+                            articuloData.preu,
+                            articuloData.subtotal
+                        );
+        
+                        // Agregar el artículo al array de todos los artículos
+                        allArticles.push(articulo);
+                    });
+                } else {
+                    console.error("La propiedad 'articles' no está definida en el objeto facturaData:", facturaData);
+                }
+            });
+        
+            // Agregar todos los artículos a la tabla de todos los artículos
+            allArticles.forEach(articulo => {
+                articulo.addToAllArticlesTable("#allArticles2 tbody"); // Agrega los artículos a la tabla de todos los artículos
+            });
+        
             // Display the loaded data in the invoice table
             data.forEach(facturaData => {
                 const factura = new Factura(
@@ -121,8 +171,7 @@ $(document).ready(function () {
                 );
                 factura.addToTable();
             });
-        };
-        reader.readAsText(file);
+        };                reader.readAsText(file);
     });
     document.getElementById("tancar").addEventListener("click", reservaF);
     document.getElementById("tancar2").addEventListener("click", platsDiaF);
@@ -216,10 +265,67 @@ $(document).ready(function () {
 
 });
 
+$(document).ready(function() {
+    // Agregar evento de clic al botón para convertir la tabla a JSON
+    $("#convertirJsonBtn").click(function() {
+        // Obtener los datos de la tabla y convertirlos a JSON
+        var jsonData = convertirTablaAJson();
 
+        // Mostrar el JSON resultante (puedes ajustar cómo deseas mostrarlo)
+        console.log(jsonData);
 
-// Resto del código...
+        // También puedes enviar el JSON a través de una solicitud AJAX o realizar otras acciones necesarias.
+    });
 
+    // Función para convertir los datos de la tabla a JSON
+// Función para convertir los datos de las tablas a JSON
+function convertirTablaAJson() {
+    var jsonData = [];
+
+    // Iterar sobre las filas de la tabla de facturas
+    $('#dataTable tbody tr').each(function(index, facturaRow) {
+        var facturaData = {};
+        var facturaCells = $(facturaRow).find('td');
+
+        // Obtener los datos de la factura y asignarlos a las claves correspondientes
+        facturaData.Num = $(facturaCells[0]).text();
+        facturaData.Data = $(facturaCells[1]).text();
+        facturaData.NIF = $(facturaCells[2]).text();
+        facturaData.Client = $(facturaCells[3]).text();
+        facturaData.Telefon = $(facturaCells[4]).text();
+        facturaData.Email = $(facturaCells[5]).text();
+        facturaData.subtotal = $(facturaCells[6]).text();
+        facturaData.Dte = $(facturaCells[7]).text();
+        facturaData.Base_I = $(facturaCells[8]).text();
+        facturaData.IVA = $(facturaCells[9]).text();
+        facturaData.Total = $(facturaCells[10]).text();
+        facturaData.P = $(facturaCells[11]).text();
+
+        // Obtener los artículos asociados a esta factura desde la tabla allArticles
+        var articlesData = [];
+        $('#allArticles tbody tr').each(function(index, articleRow) {
+            var articleCells = $(articleRow).find('td');
+            var articuloData = {
+                codi: $(articleCells[0]).text(),
+                article: $(articleCells[1]).text(),
+                uni: $(articleCells[2]).text(),
+                preu: $(articleCells[3]).text(),
+                subtotal: $(articleCells[4]).text()
+            };
+            articlesData.push(articuloData);
+        });
+
+        // Agregar el array de artículos al objeto de la factura
+        facturaData.articles = articlesData;
+
+        // Agregar los datos de la factura al arreglo de datos JSON
+        jsonData.push(facturaData);
+    });
+
+    return jsonData;
+}
+
+});
 
 function init() {}
   

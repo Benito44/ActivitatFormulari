@@ -3,7 +3,7 @@
     "Num": 1,
     "Data": "2019-01-01",
     "NIF": "12345678Z",
-    "Client": "Vaporeon",
+    "Client": "Vaporeon2",
     "Telefon": "999999999",
     "Email": "vaporeon@gmail.com",
     "subtotal": 0,
@@ -48,7 +48,8 @@
         "Base_I": 0,
         "IVA": 0,
         "Total": 0,
-        "P": true
+        "P": true,
+        "articles": []
       },
       {
         "Num": 3,

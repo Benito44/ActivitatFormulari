@@ -10,9 +10,10 @@
 	<script defer src="./Cantina.js"></script>
 </head>
 <body>
-	<div id="main" class="inline">
+	<div id="main" class="inline">		
 		<div class="inline">
 			<h2>Factures SaPa</h2>
+			<button id='convertirJsonBtn' style='margin-left:.5rem;'>jspn</button>
 			<button id='pendents' style='margin-left:.5rem;'>Guardar</button>
 			<button id='eliminar' style='margin-left:.5rem;'>Nova factura</button><br><br>
 			<button id="loadData">Carregar Dades</button>
@@ -102,6 +103,22 @@
 			</table>
 		</div>
 	</div>
+	<dialog id="allArticles">
+		<table id="allArticles2">
+			<thead>
+				<tr>
+					<th>Codi</th>
+					<th>Article</th>
+					<th>Uni</th>
+					<th>Preu</th>
+					<th>Subtotal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Aquí se mostrarán todos los artículos -->
+			</tbody>
+		</table>
+	</dialog>
 	<dialog id="menu" class="dialeg">
 		<div class="centrat">
 			<form id="formulari">
