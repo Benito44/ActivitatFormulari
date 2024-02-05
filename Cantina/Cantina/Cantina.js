@@ -47,7 +47,6 @@ class Factura {
         });
     }
 }
-
 $(document).ready(function () {
     // Agregar evento de doble clic para hacer editables los campos en el diálogo de artículos
     $(document).on('dblclick', '#editableData [tabindex="0"]', function () {
@@ -79,8 +78,6 @@ class Articulo {
                 <td tabindex="0" contenteditable="true">${this.preu}</td>
                 <td tabindex="0" contenteditable="true">${this.subtotal}</td>
                 <td>
-                <button class="boton1 btn imprimir-btn" data-num="${this.Num}">Imprimir</button>
-                <button class="boton1 btn" id="guardar">Boton1</button>
                 <button class="boton1 btn" id="eliminarTablas">Eliminar</button>
                 <button class="boton1 btn" id="${this.Num}">Boton3</button>
                 </td>
@@ -262,8 +259,35 @@ $(document).ready(function () {
         // Add the factura to the table
         factura.addToTable();
     });
+    
 
 });
+$("#nouArticle").click(function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+        
+    // Retrieve the form data
+    var codi = "algo";
+    var article = "algo";
+    var uni = "algo";
+    var preu = "algo";
+    var subtotal = "algo";
+    var acc = "algo";
+
+    // Agregar celdas a la nueva fila
+    const factura = new Articulo(
+        codi,
+        article,
+        uni,
+        preu,
+        subtotal,
+        acc,
+    );
+
+        // Add the factura to the table
+        factura.addToTable();
+});
+
+
 $(document).ready(function() {
     // Agregar evento de clic al botón para convertir la tabla a JSON
     $("#convertirJsonBtn").click(function() {
