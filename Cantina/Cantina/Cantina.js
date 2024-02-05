@@ -35,7 +35,7 @@ class Factura {
                 <td class="editable" contenteditable="true">
                 <button class="boton1 btn imprimir-btn" data-num="${this.Num}">Imprimir</button>
                 <button class="boton1 btn" id="guardar">Boton1</button>
-                <button class="boton1 btn" id="${this.Num}">Boton2</button>
+                <button class="boton1 btn" id="eliminarTablas">eliminar</button>
                 <button class="boton1 btn" id="${this.Num}">Boton3</button>
             </td>
         </tr>
@@ -81,7 +81,7 @@ class Articulo {
                 <td>
                 <button class="boton1 btn imprimir-btn" data-num="${this.Num}">Imprimir</button>
                 <button class="boton1 btn" id="guardar">Boton1</button>
-                <button class="boton1 btn" id="${this.Num}">Boton2</button>
+                <button class="boton1 btn" id="eliminarTablas">Eliminar</button>
                 <button class="boton1 btn" id="${this.Num}">Boton3</button>
                 </td>
             </tr>
@@ -264,7 +264,6 @@ $(document).ready(function () {
     });
 
 });
-
 $(document).ready(function() {
     // Agregar evento de clic al botón para convertir la tabla a JSON
     $("#convertirJsonBtn").click(function() {
@@ -274,8 +273,10 @@ $(document).ready(function() {
         // Mostrar el JSON resultante (puedes ajustar cómo deseas mostrarlo)
         console.log(jsonData);
 
-        // También puedes enviar el JSON a través de una solicitud AJAX o realizar otras acciones necesarias.
     });
+
+
+        
 
     // Función para convertir los datos de la tabla a JSON
 // Función para convertir los datos de las tablas a JSON
@@ -326,6 +327,13 @@ function convertirTablaAJson() {
 }
 
 });
+
+
+    $(document).on("click", "#eliminarTablas", function() {
+        var fila = $(this).closest("tr"); // Busca la fila más cercana al botón clickeado
+        fila.remove(); // Remueve la fila
+    });
+
 
 function init() {}
   
