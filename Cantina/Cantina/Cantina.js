@@ -50,7 +50,6 @@ class Factura {
         });
     }
 }
-
 $(document).ready(function () {
     // Agregar evento de doble clic para hacer editables los campos en el diálogo de artículos
     $(document).on('dblclick', '#editableData [tabindex="0"]', function () {
@@ -76,7 +75,7 @@ class Articulo {
         // Añadir el artículo a la tabla HTML de artículos
         $("#articles tbody").append(`
             <tr>
-                <td tabindex="0" contenteditable="true">${this.codi}</td>
+                <td>${this.codi}</td>
                 <td tabindex="0" contenteditable="true">${this.article}</td>
                 <td tabindex="0" contenteditable="true">${this.uni}</td>
                 <td tabindex="0" contenteditable="true">${this.preu}</td>
@@ -197,6 +196,7 @@ $(document).ready(function () {
         // Obtener el número de factura asociado al botón clickeado
         var numeroFactura = $(this).closest('tr').find('td:eq(0)').text();
         console.log(numeroFactura);
+        numero_de_factura = numeroFactura;
         // Limpiar la tabla de artículos antes de agregar nuevos
         $("#articles tbody").empty();
     
@@ -260,25 +260,24 @@ $(document).ready(function () {
             0, // Assuming Total is calculated based on articles, initialize to 0
             pagada,
             null, // Assuming Botons is not required here, set to null
-            [] // No articles initially
+            []
         );
 
         // Add the factura to the table
         factura.addToTable();
         menu.close();
     });
-
     
 $("#nouArticle").click(function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
         
     // Retrieve the form data
-    var codi = "algo";
-    var article = "algo";
-    var uni = "algo";
-    var preu = "algo";
-    var subtotal = "algo";
-    var acc = "algo";
+    let codi = obtenerUltimoNumeroFactura2();
+    var article = "";
+    var uni = "";
+    var preu = "";
+    var subtotal = "";
+    var acc = "";
 
     // Agregar celdas a la nueva fila
     const factura = new Articulo(
@@ -289,10 +288,10 @@ $("#nouArticle").click(function(event) {
         subtotal,
         acc,
     );
-
         // Add the factura to the table
         factura.addToTable();
 });
+
 $("#guardarArticle").click(function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
     // Objeto para almacenar las filas de allArticles2 por código (codi)
@@ -539,6 +538,31 @@ function obtenerUltimoNumeroFactura() {
     });
     return ultimoNumeroFactura;
 }
+function obtenerUltimoNumeroFactura2 (){
+    
+    return numero_de_factura + "-";
+}
+
+$(document).ready(function() {
+    // Asignar evento clic a los botones dentro de la columna "Action"
+    $("#dataTable").on("click", "button.boton1", function() {
+        // Obtener el número de factura asociado a esta fila
+        var numFactura = $(this).closest("tr").find("td:first").text();
+        
+        // Utilizar el número de factura para identificar la fila específica
+        // y obtener el valor de la celda de la columna "Núm"
+        var numCeldaNum = $("#dataTable tbody tr").filter(function() {
+            return $(this).find("td:first").text() === numFactura;
+        }).find("td:nth-child(1)").text();
+        
+        // Mostrar el valor de la celda de la columna "Núm" en la consola
+        console.log("Valor de la celda 'Núm':", numCeldaNum);
+    });
+});
+
+
+
+
 // Cambia el manejador de eventos para todos los botones de imprimir
 $(".boton1[id^='imprimir-']").on('click', function() {
     window.print();
