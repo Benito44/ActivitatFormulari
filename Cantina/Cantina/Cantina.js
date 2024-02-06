@@ -202,7 +202,6 @@ $(document).ready(function () {
         $("#taulaArticles tbody tr").each(function() {
             // Obtener el código del artículo de la primera celda
             let codigoArticulo = $(this).find('td:eq(0)').text();
-            console.log(codigoArticulo);
             // Verificar si el primer carácter del código coincide con el número de factura
             if (codigoArticulo.charAt(0) === numeroFactura) {
                 // Si coincide, obtener los datos del artículo de las celdas
@@ -305,7 +304,6 @@ $("#guardarArticle").click(function(event) {
     $("#editableData tbody tr").each(function() {
         // Obtener los datos de la fila actual
         let codi = $(this).find('td:eq(0)').text();
-        console.log(codi);
         let article = $(this).find('td:eq(1)').text();
         let uni = $(this).find('td:eq(2)').text();
         let preu = $(this).find('td:eq(3)').text();
@@ -313,13 +311,10 @@ $("#guardarArticle").click(function(event) {
 
         // Crear un nuevo objeto Articulo con los datos de la fila
         let nuevoArticulo = new Articulo(codi, article, uni, preu, subtotal);
-        console.log("nuevoArticulo");
         // Obtener la fila correspondiente en allArticles2
         let filataulaArticles = filastaulaArticles[codi];
-        console.log(filataulaArticles);
         // Verificar si la fila actual existe en allArticles2
         if (filataulaArticles && filataulaArticles.length) {
-            console.log("verificado");
 
             // Verificar si algo ha cambiado en la fila actual en comparación con allArticles2
             let filaMiTabla = $(this).html();
@@ -327,15 +322,11 @@ $("#guardarArticle").click(function(event) {
             if (filaMiTabla !== filataulaArticlesHTML) {
                 // Si algo ha cambiado, reemplazar la fila en allArticles2
                 filataulaArticles.replaceWith("<tr>" + filaMiTabla + "</tr>");
-                console.log("ha entrado para reemplazar");
 
             }
             // Eliminar la fila de allArticles2 del objeto para indicar que ya ha sido procesada
             delete filastaulaArticles[codi];
         } else {
-            // Si la fila no existe en allArticles2, agregarla
-            console.log(nuevoArticulo);
-
             nuevoArticulo.addToAllArticlesTable();
         }
     });
@@ -344,6 +335,8 @@ $("#guardarArticle").click(function(event) {
     for (let codi in filastaulaArticles) {
         $("#taulaArticles tbody").append(filastaulaArticles[codi]);
     }
+    const resum = document.getElementById("articles");
+    resum.close();
 });
 
 
@@ -461,13 +454,6 @@ $(document).ready(function() {
         // Al hacer doble clic, convertir el elemento en editable
         $(this).attr('contenteditable', true);
     });
-
-    // Manejador de eventos para el cambio en elementos con la clase "editable"
-    $(document).on('input', '.editable', function() {
-        // Puedes realizar acciones adicionales al detectar un cambio en el contenido editable
-        console.log('Contenido cambiado:', $(this).text());
-    });
-
     // Manejador de eventos para perder el foco en elementos con la clase "editable"
     $(document).on('blur', '.editable', function() {
         // Al perder el foco, desactivar la edición
@@ -490,17 +476,13 @@ function obtenerUltimoNumeroFactura2 (){
     let autoincremental = 1;
     $("#editableData tbody tr").each(function() {
         let numeroFactura = parseInt($(this).find('td:eq(1)').text());
-        console.log(numeroFactura);
         if (numeroFactura > autoincremental) {
             autoincremental = numeroFactura;
         }
-        console.log(autoincremental);
         autoincremental = autoincremental + 1;
     });
     return numero_de_factura + "-" + autoincremental;
 }
-
-
 
 /*
 const fs = require('fs'); // Módulo de sistema de archivos
