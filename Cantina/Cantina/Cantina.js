@@ -194,7 +194,7 @@ $(document).ready(function () {
     };
     $(document).on("click", "#guardar", function() {
         // Obtener el número de factura asociado al botón clickeado
-        var numeroFactura = $(this).closest('tr').find('td:eq(0)').text();
+        let numeroFactura = $(this).closest('tr').find('td:eq(0)').text();
         console.log(numeroFactura);
         numero_de_factura = numeroFactura;
         // Limpiar la tabla de artículos antes de agregar nuevos
@@ -203,15 +203,15 @@ $(document).ready(function () {
         // Recorrer las filas de la tabla allArticles2
         $("#allArticles2 tbody tr").each(function() {
             // Obtener el código del artículo de la primera celda
-            var codigoArticulo = $(this).find('td:eq(0)').text();
+            let codigoArticulo = $(this).find('td:eq(0)').text();
             console.log(codigoArticulo);
             // Verificar si el primer carácter del código coincide con el número de factura
             if (codigoArticulo.charAt(0) === numeroFactura) {
                 // Si coincide, obtener los datos del artículo de las celdas
-                var article = $(this).find('td:eq(1)').text();
-                var uni = $(this).find('td:eq(2)').text();
-                var preu = $(this).find('td:eq(3)').text();
-                var subtotal = $(this).find('td:eq(4)').text();
+                let article = $(this).find('td:eq(1)').text();
+                let uni = $(this).find('td:eq(2)').text();
+                let preu = $(this).find('td:eq(3)').text();
+                let subtotal = $(this).find('td:eq(4)').text();
     
                 // Crear una instancia de la clase Articulo con los datos del artículo
                 const articulo = new Articulo(codigoArticulo, article, uni, preu, subtotal);
@@ -235,15 +235,15 @@ $(document).ready(function () {
         event.preventDefault(); // Prevent the default form submission behavior
         
         // Retrieve the form data
-        var numFactura = $("#numFactura").val();
-        var dateFactura = $("#dateFactura").val();
-        var pagada = $("#pagada").is(":checked");
-        var nif = $("#nif").val();
-        var nombre = $("#nombre").val();
-        var telf = $("#telf").val();
-        var email = $("#email").val();
-        var dte = $("#dte").val();
-        var iva = $("#iva").val();
+        let numFactura = $("#numFactura").val();
+        let dateFactura = $("#dateFactura").val();
+        let pagada = $("#pagada").is(":checked");
+        let nif = $("#nif").val();
+        let nombre = $("#nombre").val();
+        let telf = $("#telf").val();
+        let email = $("#email").val();
+        let dte = $("#dte").val();
+        let iva = $("#iva").val();
 
         // Create a new Factura instance with the form data
         const factura = new Factura(
@@ -273,11 +273,11 @@ $("#nouArticle").click(function(event) {
         
     // Retrieve the form data
     let codi = obtenerUltimoNumeroFactura2();
-    var article = "";
-    var uni = "";
-    var preu = "";
-    var subtotal = "";
-    var acc = "";
+    let article = "";
+    let uni = "";
+    let preu = "";
+    let subtotal = "";
+    let acc = "";
 
     // Agregar celdas a la nueva fila
     const factura = new Articulo(
@@ -295,37 +295,37 @@ $("#nouArticle").click(function(event) {
 $("#guardarArticle").click(function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
     // Objeto para almacenar las filas de allArticles2 por código (codi)
-    var filasAllArticles2 = {};
+    let filasAllArticles2 = {};
 
     // Obtener todas las filas de allArticles2 y almacenarlas en el objeto por código (codi)
     $("#allArticles2 tbody tr").each(function() {
-        var codi = $(this).find('td:eq(0)').text();
+        let codi = $(this).find('td:eq(0)').text();
         filasAllArticles2[codi] = $(this);
     });
 
     // Recorrer todas las filas de la tabla editableData
     $("#editableData tbody tr").each(function() {
         // Obtener los datos de la fila actual
-        var codi = $(this).find('td:eq(0)').text();
+        let codi = $(this).find('td:eq(0)').text();
         console.log(codi);
-        var article = $(this).find('td:eq(1)').text();
-        var uni = $(this).find('td:eq(2)').text();
-        var preu = $(this).find('td:eq(3)').text();
-        var subtotal = $(this).find('td:eq(4)').text();
+        let article = $(this).find('td:eq(1)').text();
+        let uni = $(this).find('td:eq(2)').text();
+        let preu = $(this).find('td:eq(3)').text();
+        let subtotal = $(this).find('td:eq(4)').text();
 
         // Crear un nuevo objeto Articulo con los datos de la fila
-        var nuevoArticulo = new Articulo(codi, article, uni, preu, subtotal);
+        let nuevoArticulo = new Articulo(codi, article, uni, preu, subtotal);
         console.log("nuevoArticulo");
         // Obtener la fila correspondiente en allArticles2
-        var filaAllArticles2 = filasAllArticles2[codi];
+        let filaAllArticles2 = filasAllArticles2[codi];
         console.log(filaAllArticles2);
         // Verificar si la fila actual existe en allArticles2
         if (filaAllArticles2 && filaAllArticles2.length) {
             console.log("verificado");
 
             // Verificar si algo ha cambiado en la fila actual en comparación con allArticles2
-            var filaMiTabla = $(this).html();
-            var filaAllArticles2HTML = filaAllArticles2.html();
+            let filaMiTabla = $(this).html();
+            let filaAllArticles2HTML = filaAllArticles2.html();
             if (filaMiTabla !== filaAllArticles2HTML) {
                 // Si algo ha cambiado, reemplazar la fila en allArticles2
                 filaAllArticles2.replaceWith("<tr>" + filaMiTabla + "</tr>");
@@ -343,7 +343,7 @@ $("#guardarArticle").click(function(event) {
     });
 
     // Agregar las filas restantes de allArticles2 que no están presentes en editableData
-    for (var codi in filasAllArticles2) {
+    for (let codi in filasAllArticles2) {
         $("#allArticles2 tbody").append(filasAllArticles2[codi]);
     }
 });
@@ -353,7 +353,7 @@ $(document).ready(function() {
     // Agregar evento de clic al botón para convertir la tabla a JSON
     $("#convertirJsonBtn").click(function() {
         // Obtener los datos de la tabla y convertirlos a JSON
-        var jsonData = convertirTablaAJson();
+        let jsonData = convertirTablaAJson();
 
         // Mostrar el JSON resultante (puedes ajustar cómo deseas mostrarlo)
         console.log(jsonData);
@@ -366,27 +366,27 @@ $(document).ready(function() {
     // Función para convertir los datos de la tabla a JSON
 // Función para convertir los datos de las tablas a JSON
 function convertirTablaAJson() {
-    var jsonData = [];
+    let jsonData = [];
 
     // Iterar sobre las filas de la tabla de facturas
     $('#dataTable tbody tr').each(function(index, facturaRow) {
-        var facturaData = {};
-        var facturaCells = $(facturaRow).find('td');
+        let facturaData = {};
+        let facturaCells = $(facturaRow).find('td');
 
         // Obtener el número de factura
-        var numFactura = $(facturaCells[0]).text();
+        let numFactura = $(facturaCells[0]).text();
 
         // Inicializar el array de artículos asociados a esta factura
-        var articlesData = [];
+        let articlesData = [];
 
         // Iterar sobre las filas de la tabla de artículos
         $('#allArticles tbody tr').each(function(index, articleRow) {
-            var articleCells = $(articleRow).find('td');
-            var codArticulo = $(articleCells[0]).text();
+            let articleCells = $(articleRow).find('td');
+            let codArticulo = $(articleCells[0]).text();
 
             // Si el código del artículo comienza con el número de factura
             if (codArticulo.startsWith(numFactura + "-")) {
-                var articuloData = {
+                let articuloData = {
                     codi: codArticulo,
                     article: $(articleCells[1]).text(),
                     uni: $(articleCells[2]).text(),
@@ -446,17 +446,11 @@ $(document).ready(function () {
         // Actualizar el número de factura en el diálogo antes de mostrarlo
         actualizarNumeroFacturaEnDialog();
         // Mostrar el diálogo
-        $('#menu').showModal();
     });
-
-    
-
 });
 
-
-
     $(document).on("click", "#eliminarTablas", function() {
-        var fila = $(this).closest("tr"); // Busca la fila más cercana al botón clickeado
+        let fila = $(this).closest("tr"); // Busca la fila más cercana al botón clickeado
         fila.remove(); // Remueve la fila
     });
 
@@ -547,11 +541,11 @@ $(document).ready(function() {
     // Asignar evento clic a los botones dentro de la columna "Action"
     $("#dataTable").on("click", "button.boton1", function() {
         // Obtener el número de factura asociado a esta fila
-        var numFactura = $(this).closest("tr").find("td:first").text();
+        let numFactura = $(this).closest("tr").find("td:first").text();
         
         // Utilizar el número de factura para identificar la fila específica
         // y obtener el valor de la celda de la columna "Núm"
-        var numCeldaNum = $("#dataTable tbody tr").filter(function() {
+        let numCeldaNum = $("#dataTable tbody tr").filter(function() {
             return $(this).find("td:first").text() === numFactura;
         }).find("td:nth-child(1)").text();
         
@@ -559,9 +553,6 @@ $(document).ready(function() {
         console.log("Valor de la celda 'Núm':", numCeldaNum);
     });
 });
-
-
-
 
 // Cambia el manejador de eventos para todos los botones de imprimir
 $(".boton1[id^='imprimir-']").on('click', function() {
