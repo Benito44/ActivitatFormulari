@@ -357,7 +357,6 @@ $(document).ready(function() {
 
         // Mostrar el JSON resultante (puedes ajustar cómo deseas mostrarlo)
         console.log(jsonData);
-
     });
 
 
@@ -490,8 +489,17 @@ function obtenerUltimoNumeroFactura() {
     return ultimoNumeroFactura;
 }
 function obtenerUltimoNumeroFactura2 (){
-    
-    return numero_de_factura + "-";
+    let autoincremental = 1;
+    $("#editableData tbody tr").each(function() {
+        let numeroFactura = parseInt($(this).find('td:eq(1)').text());
+        console.log(numeroFactura);
+        if (numeroFactura > autoincremental) {
+            autoincremental = numeroFactura;
+        }
+        console.log(autoincremental);
+        autoincremental = autoincremental + 1;
+    });
+    return numero_de_factura + "-" + autoincremental;
 }
 
 $(document).ready(function() {
