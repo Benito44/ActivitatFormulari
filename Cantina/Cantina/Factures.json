@@ -14,21 +14,21 @@
     "P": true,
     "articles": [
       {
-        "codi": "A001",
+        "codi": "1-1",
         "article": "Producto 1",
         "uni": 2,
         "preu": 10,
         "subtotal": 20
       },
       {
-        "codi": "A002",
+        "codi": "1-2",
         "article": "Producto 2",
         "uni": 1,
         "preu": 15,
         "subtotal": 15
       },
       {
-        "codi": "A003",
+        "codi": "1-3",
         "article": "Producto 3",
         "uni": 3,
         "preu": 8,
@@ -66,7 +66,7 @@
         "P": true,
         "articles": [
           {
-            "codi": "HOLA",
+            "codi": "3-1",
             "article": "Producto 1",
             "uni": 2,
             "preu": 10,

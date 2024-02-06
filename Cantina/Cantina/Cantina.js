@@ -117,7 +117,7 @@ $(document).ready(function () {
             data = JSON.parse(e.target.result); // Almacena los datos JSON cargados en la variable 'data'
         
             // Limpiar la tabla de todos los artículos antes de agregar los nuevos artículos
-            $("#allArticles2 tbody").empty(); // Selecciona la tabla de todos los artículos
+            $("#allArticles2 tbody").empty(); 
         
             // Array para almacenar todos los artículos
             let allArticles = [];
@@ -149,8 +149,7 @@ $(document).ready(function () {
             allArticles.forEach(articulo => {
                 articulo.addToAllArticlesTable("#allArticles2 tbody"); // Agrega los artículos a la tabla de todos los artículos
             });
-        
-            // Display the loaded data in the invoice table
+            $("#dataTable tbody").empty(); 
             data.forEach(facturaData => {
                 const factura = new Factura(
                     facturaData.Num,
@@ -166,6 +165,7 @@ $(document).ready(function () {
                     facturaData.Total,
                     facturaData.P
                 );
+
                 factura.addToTable();
             });
         };                reader.readAsText(file);
@@ -189,39 +189,41 @@ $(document).ready(function () {
     function platsDiaT() {
         resum.showModal();
     };
-    // Add event listener for the "guardar" button
     $(document).on("click", "#guardar", function() {
-        // Get the invoice number associated with the clicked button
-        var invoiceNumber = $(this).closest('tr').find('td:eq(0)').text();
-
-        // Find the corresponding invoice data
-        var invoiceData = data.find(facturaData => facturaData.Num === parseInt(invoiceNumber));
-
-        // Display articles for the selected invoice
-        if (invoiceData && invoiceData.articles && Array.isArray(invoiceData.articles)) {
-            // Clear existing articles before adding new ones
-            $("#articles tbody").empty();
-
-            // Loop through articles and add them to the table
-            invoiceData.articles.forEach(articuloData => {
-                const articulo = new Articulo(
-                    articuloData.codi,
-                    articuloData.article,
-                    articuloData.uni,
-                    articuloData.preu,
-                    articuloData.subtotal
-                );
+        // Obtener el número de factura asociado al botón clickeado
+        var numeroFactura = $(this).closest('tr').find('td:eq(0)').text();
+        console.log(numeroFactura);
+        // Limpiar la tabla de artículos antes de agregar nuevos
+        $("#articles tbody").empty();
+    
+        // Recorrer las filas de la tabla allArticles2
+        $("#allArticles2 tbody tr").each(function() {
+            // Obtener el código del artículo de la primera celda
+            var codigoArticulo = $(this).find('td:eq(0)').text();
+            console.log(codigoArticulo);
+            // Verificar si el primer carácter del código coincide con el número de factura
+            if (codigoArticulo.charAt(0) === numeroFactura) {
+                // Si coincide, obtener los datos del artículo de las celdas
+                var article = $(this).find('td:eq(1)').text();
+                var uni = $(this).find('td:eq(2)').text();
+                var preu = $(this).find('td:eq(3)').text();
+                var subtotal = $(this).find('td:eq(4)').text();
+    
+                // Crear una instancia de la clase Articulo con los datos del artículo
+                const articulo = new Articulo(codigoArticulo, article, uni, preu, subtotal);
+    
+                // Agregar el artículo a la tabla articles
                 articulo.addToTable();
-            });
-        } else {
-            // If no articles found for the selected invoice, display a message or handle it accordingly
-            alert("No se encontraron artículos para esta factura.");
-            $("#articles tbody").empty();
-
-        }
+            }
+        });
+    
+        // Mostrar el dialog
         const resum = document.getElementById("articles");
         resum.showModal();
     });
+    });
+    
+    
 
     // Add event listener for the "guardar" button inside the dialog form
     $("#formulari").submit(function(event) {
@@ -259,9 +261,7 @@ $(document).ready(function () {
         // Add the factura to the table
         factura.addToTable();
     });
-    
 
-});
 $("#nouArticle").click(function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
         
@@ -285,6 +285,61 @@ $("#nouArticle").click(function(event) {
 
         // Add the factura to the table
         factura.addToTable();
+});
+$("#guardarArticle").click(function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    // Objeto para almacenar las filas de allArticles2 por código (codi)
+    var filasAllArticles2 = {};
+
+    // Obtener todas las filas de allArticles2 y almacenarlas en el objeto por código (codi)
+    $("#allArticles2 tbody tr").each(function() {
+        var codi = $(this).find('td:eq(0)').text();
+        filasAllArticles2[codi] = $(this);
+    });
+
+    // Recorrer todas las filas de la tabla editableData
+    $("#editableData tbody tr").each(function() {
+        // Obtener los datos de la fila actual
+        var codi = $(this).find('td:eq(0)').text();
+        console.log(codi);
+        var article = $(this).find('td:eq(1)').text();
+        var uni = $(this).find('td:eq(2)').text();
+        var preu = $(this).find('td:eq(3)').text();
+        var subtotal = $(this).find('td:eq(4)').text();
+
+        // Crear un nuevo objeto Articulo con los datos de la fila
+        var nuevoArticulo = new Articulo(codi, article, uni, preu, subtotal);
+        console.log("nuevoArticulo");
+        // Obtener la fila correspondiente en allArticles2
+        var filaAllArticles2 = filasAllArticles2[codi];
+        console.log(filaAllArticles2);
+        // Verificar si la fila actual existe en allArticles2
+        if (filaAllArticles2 && filaAllArticles2.length) {
+            console.log("verificado");
+
+            // Verificar si algo ha cambiado en la fila actual en comparación con allArticles2
+            var filaMiTabla = $(this).html();
+            var filaAllArticles2HTML = filaAllArticles2.html();
+            if (filaMiTabla !== filaAllArticles2HTML) {
+                // Si algo ha cambiado, reemplazar la fila en allArticles2
+                filaAllArticles2.replaceWith("<tr>" + filaMiTabla + "</tr>");
+                console.log("ha entrado para reemplazar");
+
+            }
+            // Eliminar la fila de allArticles2 del objeto para indicar que ya ha sido procesada
+            delete filasAllArticles2[codi];
+        } else {
+            // Si la fila no existe en allArticles2, agregarla
+            console.log(nuevoArticulo);
+
+            nuevoArticulo.addToAllArticlesTable();
+        }
+    });
+
+    // Agregar las filas restantes de allArticles2 que no están presentes en editableData
+    for (var codi in filasAllArticles2) {
+        $("#allArticles2 tbody").append(filasAllArticles2[codi]);
+    }
 });
 
 
