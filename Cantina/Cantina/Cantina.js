@@ -1,6 +1,9 @@
+
 class Factura {
     constructor(Num, Data, NIF, Client, Telefon, Email, subtotal, Dte, Base_I, IVA, Total, P, Botons, articles) {
-        this.Num = Num;
+        let ultimoNumeroFactura = obtenerUltimoNumeroFactura();
+        // Asignar el número de la próxima factura
+        this.Num = ultimoNumeroFactura + 1;
         this.Data = Data;
         this.NIF = NIF;
         this.Client = Client;
@@ -490,7 +493,17 @@ $(document).ready(function() {
     });
 });
 
-
+function obtenerUltimoNumeroFactura() {
+    let ultimoNumeroFactura = 0;
+    // Iterar sobre las filas de la tabla dataTable y encontrar el número de factura más alto
+    $("#dataTable tbody tr").each(function() {
+        let numeroFactura = parseInt($(this).find('td:eq(0)').text());
+        if (numeroFactura > ultimoNumeroFactura) {
+            ultimoNumeroFactura = numeroFactura;
+        }
+    });
+    return ultimoNumeroFactura;
+}
 // Cambia el manejador de eventos para todos los botones de imprimir
 $(".boton1[id^='imprimir-']").on('click', function() {
     window.print();
