@@ -367,8 +367,32 @@ function convertirTablaAJson() {
         var facturaData = {};
         var facturaCells = $(facturaRow).find('td');
 
-        // Obtener los datos de la factura y asignarlos a las claves correspondientes
-        facturaData.Num = $(facturaCells[0]).text();
+        // Obtener el número de factura
+        var numFactura = $(facturaCells[0]).text();
+
+        // Inicializar el array de artículos asociados a esta factura
+        var articlesData = [];
+
+        // Iterar sobre las filas de la tabla de artículos
+        $('#allArticles tbody tr').each(function(index, articleRow) {
+            var articleCells = $(articleRow).find('td');
+            var codArticulo = $(articleCells[0]).text();
+
+            // Si el código del artículo comienza con el número de factura
+            if (codArticulo.startsWith(numFactura + "-")) {
+                var articuloData = {
+                    codi: codArticulo,
+                    article: $(articleCells[1]).text(),
+                    uni: $(articleCells[2]).text(),
+                    preu: $(articleCells[3]).text(),
+                    subtotal: $(articleCells[4]).text()
+                };
+                articlesData.push(articuloData);
+            }
+        });
+
+        // Asignar los datos de la factura
+        facturaData.Num = numFactura;
         facturaData.Data = $(facturaCells[1]).text();
         facturaData.NIF = $(facturaCells[2]).text();
         facturaData.Client = $(facturaCells[3]).text();
@@ -381,21 +405,7 @@ function convertirTablaAJson() {
         facturaData.Total = $(facturaCells[10]).text();
         facturaData.P = $(facturaCells[11]).text();
 
-        // Obtener los artículos asociados a esta factura desde la tabla allArticles
-        var articlesData = [];
-        $('#allArticles tbody tr').each(function(index, articleRow) {
-            var articleCells = $(articleRow).find('td');
-            var articuloData = {
-                codi: $(articleCells[0]).text(),
-                article: $(articleCells[1]).text(),
-                uni: $(articleCells[2]).text(),
-                preu: $(articleCells[3]).text(),
-                subtotal: $(articleCells[4]).text()
-            };
-            articlesData.push(articuloData);
-        });
-
-        // Agregar el array de artículos al objeto de la factura
+        // Agregar los artículos asociados a esta factura
         facturaData.articles = articlesData;
 
         // Agregar los datos de la factura al arreglo de datos JSON
@@ -485,3 +495,26 @@ $(document).ready(function() {
 $("[id^='imprimir-']").on('click', function() {
     window.print();
 });
+/*
+const fs = require('fs'); // Módulo de sistema de archivos
+
+// Objeto JSON de ejemplo
+const datos = {
+    nombre: "Ejemplo",
+    edad: 30,
+    ciudad: "Ciudad Ejemplo"
+};
+
+// Convertir el objeto JSON a formato de cadena
+const datosString = JSON.stringify(datos, null, 2);
+
+// Escribir el objeto JSON en un archivo
+fs.writeFile('datos.json', datosString, 'utf8', (err) => {
+    if (err) {
+        console.error('Error al escribir el archivo:', err);
+        return;
+    }
+    console.log('Los datos se han guardado correctamente en datos.json');
+});
+
+*/
