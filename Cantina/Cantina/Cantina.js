@@ -104,7 +104,7 @@ class Articulo {
 }
 
 let data; // Declare the data variable in the global scope
-
+let subtotal_T;
 $(document).ready(function () {
     $("#carregarDades").click(function() {
         $("#arxiuJSON").click();
@@ -209,7 +209,8 @@ $(document).ready(function () {
                 let uni = $(this).find('td:eq(2)').text();
                 let preu = $(this).find('td:eq(3)').text();
                 let subtotal = uni * preu;
-    
+                subtotal_T += subtotal; 
+                 
                 // Crear una instancia de la clase Articulo con los datos del artículo
                 const articulo = new Articulo(codigoArticulo, article, uni, preu, subtotal);
     
