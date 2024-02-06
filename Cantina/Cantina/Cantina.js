@@ -195,7 +195,6 @@ $(document).ready(function () {
     $(document).on("click", "#guardar", function() {
         // Obtener el número de factura asociado al botón clickeado
         let numeroFactura = $(this).closest('tr').find('td:eq(0)').text();
-        console.log(numeroFactura);
         numero_de_factura = numeroFactura;
         // Limpiar la tabla de artículos antes de agregar nuevos
         $("#articles tbody").empty();
@@ -211,7 +210,7 @@ $(document).ready(function () {
                 let article = $(this).find('td:eq(1)').text();
                 let uni = $(this).find('td:eq(2)').text();
                 let preu = $(this).find('td:eq(3)').text();
-                let subtotal = $(this).find('td:eq(4)').text();
+                let subtotal = uni * preu;
     
                 // Crear una instancia de la clase Articulo con los datos del artículo
                 const articulo = new Articulo(codigoArticulo, article, uni, preu, subtotal);
