@@ -50,6 +50,7 @@ class Factura {
         });
     }
 }
+
 $(document).ready(function () {
     // Agregar evento de doble clic para hacer editables los campos en el diálogo de artículos
     $(document).on('dblclick', '#editableData [tabindex="0"]', function () {
@@ -223,6 +224,7 @@ $(document).ready(function () {
         // Mostrar el dialog
         const resum = document.getElementById("articles");
         resum.showModal();
+
     });
     });
     
@@ -263,8 +265,10 @@ $(document).ready(function () {
 
         // Add the factura to the table
         factura.addToTable();
+        menu.close();
     });
 
+    
 $("#nouArticle").click(function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
         
@@ -358,7 +362,7 @@ $(document).ready(function() {
     });
 
 
-        
+
 
     // Función para convertir los datos de la tabla a JSON
 // Función para convertir los datos de las tablas a JSON
@@ -419,6 +423,37 @@ function convertirTablaAJson() {
 }
 
 });
+
+$(document).ready(function () {
+    // Función para obtener el número actual de la factura
+    function obtenerNumeroFacturaActual() {
+        // Obtener el último número de factura en la tabla
+        let ultimoNumeroFactura = obtenerUltimoNumeroFactura(); // Asegúrate de definir esta función
+        // Calcular el número de la próxima factura sumándole 1 al último número
+        let numeroFacturaActual = ultimoNumeroFactura + 1;
+        return numeroFacturaActual;
+    }
+    
+    // Función para actualizar el campo de entrada del número de factura en el diálogo
+    function actualizarNumeroFacturaEnDialog() {
+        // Obtener el número actual de la factura
+        let numeroFacturaActual = obtenerNumeroFacturaActual();
+        // Asignar el número actual al campo de entrada en el diálogo
+        $('#numFactura').val(numeroFacturaActual);
+    }
+
+    // Agregar evento de clic al botón "Nova factura" para abrir el diálogo
+    $('#eliminar').click(function() {
+        // Actualizar el número de factura en el diálogo antes de mostrarlo
+        actualizarNumeroFacturaEnDialog();
+        // Mostrar el diálogo
+        $('#menu').showModal();
+    });
+
+    
+
+});
+
 
 
     $(document).on("click", "#eliminarTablas", function() {
@@ -508,6 +543,8 @@ function obtenerUltimoNumeroFactura() {
 $(".boton1[id^='imprimir-']").on('click', function() {
     window.print();
 });
+
+
 /*
 const fs = require('fs'); // Módulo de sistema de archivos
 
