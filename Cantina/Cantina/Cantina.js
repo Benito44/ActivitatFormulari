@@ -492,7 +492,7 @@ $(document).ready(function() {
 
 
 // Cambia el manejador de eventos para todos los botones de imprimir
-$("[id^='imprimir-']").on('click', function() {
+$(".boton1[id^='imprimir-']").on('click', function() {
     window.print();
 });
 /*
