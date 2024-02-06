@@ -13,11 +13,10 @@
 	<div id="main" class="inline">		
 		<div class="inline">
 			<h2>Factures SaPa</h2>
-			<button id='convertirJsonBtn' style='margin-left:.5rem;'>jspn</button>
-			<button id='pendents' style='margin-left:.5rem;'>Guardar</button>
-			<button id='eliminar' style='margin-left:.5rem;'>Nova factura</button><br><br>
-			<button id="loadData">Carregar Dades</button>
-			<input type="file" id="fileInput" style="display:none;" accept=".json">
+			<button id='convertirJsonBtn' style='margin-left:.5rem;'>JSON</button>
+			<button id='novaFactura' style='margin-left:.5rem;'>Nova factura</button><br><br>
+			<button id="carregarDades">Carregar Dades</button>
+			<input type="file" id="arxiuJSON" style="display:none;" accept=".json">
 			<table id="dataTable">
 				<thead>
 					<tr>
@@ -51,10 +50,10 @@
                 <td>0</td>
                 <td>true</td>
                 <td>
-                    <button class="boton1 btn" id="imprimir-${this.Num}">Imprimir</button>
-                    <button class="boton1 btn" id="guardar">Boton1</button>
-                    <button class="boton1 btn" id="eliminarTablas">Boton2</button>
-                    <button class="boton1 btn" id="1">Boton3</button>
+                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="mostraArticles">Boton1</button>
+                    <button class="boton1 btn" id="eliminarTables">Boton2</button>
+                    <button class="boton1 btn" id="editarFormTaules">Boton3</button>
                 </td>
             </tr>
         
@@ -72,10 +71,10 @@
                 <td>0</td>
                 <td>true</td>
                 <td>
-					<button class="boton1 btn" id="imprimir-${this.Num}">Imprimir</button>
-                    <button class="boton1 btn" id="guardar">Boton1</button>
-                    <button class="boton1 btn" id="eliminarTablas">Boton2</button>
-                    <button class="boton1 btn" id="2">Boton3</button>
+					<button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="mostraArticles">Boton1</button>
+                    <button class="boton1 btn" id="eliminarTables">Boton2</button>
+                    <button class="boton1 btn" id="editarFormTaules">Boton3</button>
                 </td>
             </tr>
         
@@ -93,18 +92,18 @@
                 <td>0</td>
                 <td>true</td>
                 <td>
-                    <button class="boton1 btn" id="imprimir-${this.Num}">Imprimir</button>
-                    <button class="boton1 btn" id="guardar">Boton1</button>
-                    <button class="boton1 btn" id="eliminarTablas">Boton2</button>
-                    <button class="boton1 btn" id="3">Boton3</button>
+                    <button class="boton1 btn" id="imprimir">Imprimir</button>
+                    <button class="boton1 btn" id="mostraArticles">Boton1</button>
+                    <button class="boton1 btn" id="eliminarTables">Boton2</button>
+                    <button class="boton1 btn" id="editarFormTaules">Boton3</button>
                 </td>
             </tr>
         </tbody>
 			</table>
 		</div>
 	</div>
-	<dialog id="allArticles">
-		<table id="allArticles2">
+	<dialog id="articlesTotals">
+		<table id="taulaArticles">
 			<thead>
 				<tr>
 					<th>Codi</th>
