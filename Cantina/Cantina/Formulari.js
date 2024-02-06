@@ -1,8 +1,12 @@
 
+/*
+Benito Martínez Florido
+Alberto Morcillo Montejo
+*/
+
 class Factura {
     constructor(Num, Data, NIF, Client, Telefon, Email, subtotal, Dte, Base_I, IVA, Total, P, Botons, articles) {
         let ultimoNumeroFactura = obtenerUltimoNumeroFactura();
-        // Asignar el número de la próxima factura
         this.Num = ultimoNumeroFactura + 1;
         this.Data = Data;
         this.NIF = NIF;
@@ -30,9 +34,9 @@ class Factura {
                 <td tabindex="0" contenteditable="true">${this.Telefon}</td>
                 <td tabindex="0" contenteditable="true">${this.Email}</td>
                 <td>${this.subtotal}</td>
-                <td>${this.Dte}</td>
-                <td>${this.Base_I}</td>
-                <td>${this.IVA}</td>
+                <td tabindex="0" contenteditable="true">${this.Dte}</td>
+                <td tabindex="0" contenteditable="true">${this.Base_I}</td>
+                <td tabindex="0" contenteditable="true">${this.IVA}</td>
                 <td>${this.Total}</td>
                 <td tabindex="0" contenteditable="true">${this.P}</td>
                 <td>
@@ -174,41 +178,33 @@ $(document).ready(function () {
             });
         };                reader.readAsText(file);
     });
-    document.getElementById("tancar").addEventListener("click", reservaF);
-    document.getElementById("tancar2").addEventListener("click", platsDiaF);
-    document.getElementById("novaFactura").addEventListener("click", reservaT);
+    document.getElementById("tancar").addEventListener("click", tancarReserva);
+    document.getElementById("tancar2").addEventListener("click", tancarArticles);
+    document.getElementById("novaFactura").addEventListener("click", obrirReserva);
     
     const resum = document.getElementById("articles");
     const menu = document.getElementById("menu");
 
-
-
-    function reservaF() {
+    function tancarReserva() {
         menu.close();
     };
-    function reservaT() {
+    function obrirReserva() {
         menu.showModal();
     };
-    function platsDiaF() {
+    function tancarArticles() {
         resum.close();
-    };
-    function platsDiaT() {
-        resum.showModal();
     };
     $(document).on("click", "#mostraArticles", function() {
         // Obtener el número de factura asociado al botón clickeado
         let numeroFactura = $(this).closest('tr').find('td:eq(0)').text();
         numero_de_factura = numeroFactura;
-        // Limpiar la tabla de artículos antes de agregar nuevos
         $("#articles tbody").empty();
     
         // Recorrer las filas de la tabla allArticles2
         $("#taulaArticles tbody tr").each(function() {
-            // Obtener el código del artículo de la primera celda
             let codigoArticulo = $(this).find('td:eq(0)').text();
             // Verificar si el primer carácter del código coincide con el número de factura
             if (codigoArticulo.charAt(0) === numeroFactura) {
-                // Si coincide, obtener los datos del artículo de las celdas
                 let article = $(this).find('td:eq(1)').text();
                 let uni = $(this).find('td:eq(2)').text();
                 let preu = $(this).find('td:eq(3)').text();
@@ -230,13 +226,9 @@ $(document).ready(function () {
     });
     });
     
-    
-
-    // Add event listener for the "mostraArticles" button inside the dialog form
     $("#formulari").submit(function(event) {
-        event.preventDefault(); // Prevent the default form submission behavior
+        event.preventDefault(); 
         
-        // Retrieve the form data
         let numFactura = $("#numFactura").val();
         let dateFactura = $("#dateFactura").val();
         let pagada = $("#pagada").is(":checked");
@@ -247,7 +239,6 @@ $(document).ready(function () {
         let dte = $("#dte").val();
         let iva = $("#iva").val();
 
-        // Create a new Factura instance with the form data
         const factura = new Factura(
             numFactura,
             dateFactura,
@@ -255,13 +246,13 @@ $(document).ready(function () {
             nombre,
             telf,
             email,
-            0, // Assuming subtotal is calculated based on articles, initialize to 0
+            0, 
             dte,
-            0, // Initialize Base_I to 0, as it might be calculated based on articles
+            0, 
             iva,
-            0, // Assuming Total is calculated based on articles, initialize to 0
+            0, 
             pagada,
-            null, // Assuming Botons is not required here, set to null
+            null, 
             []
         );
 
@@ -271,9 +262,8 @@ $(document).ready(function () {
     });
     
 $("#nouArticle").click(function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
         
-    // Retrieve the form data
     let codi = obtenerUltimoNumeroFactura2();
     let article = "";
     let uni = "";
@@ -290,16 +280,13 @@ $("#nouArticle").click(function(event) {
         subtotal,
         acc,
     );
-        // Add the factura to the table
         factura.addToTable();
 });
 
 $("#guardarArticle").click(function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-    // Objeto para almacenar las filas de allArticles2 por código (codi)
+    event.preventDefault(); 
     let filastaulaArticles = {};
 
-    // Obtener todas las filas de allArticles2 y almacenarlas en el objeto por código (codi)
     $("#taulaArticles tbody tr").each(function() {
         let codi = $(this).find('td:eq(0)').text();
         filastaulaArticles[codi] = $(this);
@@ -335,13 +322,11 @@ $("#guardarArticle").click(function(event) {
         }
     });
 
-    // Agregar las filas restantes de allArticles2 que no están presentes en editableData
     for (let codi in filastaulaArticles) {
         $("#taulaArticles tbody").append(filastaulaArticles[codi]);
     }
     let nFac = 0;
     nFac = numero_de_factura;
-        // Obtener la fila de la factura correspondiente en la tabla de facturas
         var facturaRow = $('#dataTable tbody tr').filter(function() {
             return $(this).find('td:first-child').text() === nFac.toString();
         });
@@ -350,27 +335,27 @@ $("#guardarArticle").click(function(event) {
         if (facturaRow.length > 0) {
             // Actualizar el subtotal de la factura correspondiente
             facturaRow.find('td:nth-child(7)').text(subtotal_T);
+            let sub = parseFloat(facturaRow.find('td:nth-child(7)').text());
+            let descompte = parseFloat(facturaRow.find('td:nth-child(8)').text());
+            sub = sub - ((descompte / 100) * sub);
+            let ivaFactura = parseFloat(facturaRow.find('td:nth-child(10)').text());
+            let total = sub + ((ivaFactura / 100) * sub); 
+            facturaRow.find('td:nth-child(11)').text(total.toFixed(2));
+            subtotal_T = 0;
         } else {
             console.log("No se encontró la factura con el número: " + nFac);
         }
-    subtotal_T = 0;
+
     const resum = document.getElementById("articles");
     resum.close();
 });
 
 
 $(document).ready(function() {
-    // Agregar evento de clic al botón para convertir la tabla a JSON
     $("#convertirJsonBtn").click(function() {
-        // Obtener los datos de la tabla y convertirlos a JSON
         let jsonData = convertirTablaAJson();
     });
 
-
-
-
-    // Función para convertir los datos de la tabla a JSON
-// Función para convertir los datos de las tablas a JSON
 function convertirTablaAJson() {
     let jsonData = [];
 
@@ -416,14 +401,10 @@ function convertirTablaAJson() {
         facturaData.IVA = $(facturaCells[9]).text();
         facturaData.Total = $(facturaCells[10]).text();
         facturaData.P = $(facturaCells[11]).text();
-
-        // Agregar los artículos asociados a esta factura
         facturaData.articles = articlesData;
 
-        // Agregar los datos de la factura al arreglo de datos JSON
         jsonData.push(facturaData);
     });
-
             // Convertir el objeto JSON a una cadena
             const jsonDataString = JSON.stringify(jsonData, null, 2);
 
@@ -438,37 +419,29 @@ function convertirTablaAJson() {
 });
         // Función para descargar el JSON
         function descargarJson(jsonData, filename) {
-            // Crear un enlace temporal
             const enlace = document.createElement('a');
             enlace.href = URL.createObjectURL(new Blob([jsonData], { type: 'application/json' }));
             enlace.download = filename;
             
-            // Hacer clic en el enlace para descargar el archivo
             enlace.click();
         }
 $(document).ready(function () {
     // Función para obtener el número actual de la factura
     function obtenerNumeroFacturaActual() {
-        // Obtener el último número de factura en la tabla
-        let ultimoNumeroFactura = obtenerUltimoNumeroFactura(); // Asegúrate de definir esta función
-        // Calcular el número de la próxima factura sumándole 1 al último número
+        let ultimoNumeroFactura = obtenerUltimoNumeroFactura();
         let numeroFacturaActual = ultimoNumeroFactura + 1;
         return numeroFacturaActual;
     }
     
     // Función para actualizar el campo de entrada del número de factura en el diálogo
     function actualizarNumeroFacturaEnDialog() {
-        // Obtener el número actual de la factura
         let numeroFacturaActual = obtenerNumeroFacturaActual();
-        // Asignar el número actual al campo de entrada en el diálogo
         $('#numFactura').val(numeroFacturaActual);
     }
 
-    // Agregar evento de clic al botón "Nova factura" para abrir el diálogo
     $('#novaFactura').click(function() {
-        // Actualizar el número de factura en el diálogo antes de mostrarlo
         actualizarNumeroFacturaEnDialog();
-        // Mostrar el diálogo
+
     });
 });
 
@@ -482,21 +455,16 @@ function init() {}
 $(document).ready(init);
 	
 $(document).ready(function() {
-    // Manejador de eventos para el doble clic en elementos con la clase "editable"
     $(document).on('dblclick', '.editable', function() {
-        // Al hacer doble clic, convertir el elemento en editable
         $(this).attr('contenteditable', true);
     });
-    // Manejador de eventos para perder el foco en elementos con la clase "editable"
     $(document).on('blur', '.editable', function() {
-        // Al perder el foco, desactivar la edición
         $(this).removeAttr('contenteditable');
     });
 });
 
 function obtenerUltimoNumeroFactura() {
     let ultimoNumeroFactura = 0;
-    // Iterar sobre las filas de la tabla dataTable y encontrar el número de factura más alto
     $("#dataTable tbody tr").each(function() {
         let numeroFactura = parseInt($(this).find('td:eq(0)').text());
         if (numeroFactura > ultimoNumeroFactura) {
@@ -516,5 +484,3 @@ function obtenerUltimoNumeroFactura2 (){
     });
     return numero_de_factura + "-" + autoincremental;
 }
-
-
