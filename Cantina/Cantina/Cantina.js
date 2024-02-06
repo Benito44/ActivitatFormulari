@@ -462,51 +462,8 @@ $(document).ready(function () {
 
 
 function init() {}
-  
-  
-  
-
-
 $(document).ready(init);
 	
-function primerPreu(event) {
-
-	if (event.target.value == "" && document.getElementById("segon").value !== ""){
-		document.getElementById("total").innerHTML = "6,50 €";
-	}
-
-	else if (!event.target.value !== ""){
-		document.getElementById("total").innerHTML = "9 €";
-	}  
-	if (!event.target.value !== "" && document.getElementById("segon").value == ""){
-		document.getElementById("total").innerHTML = "5,50 €";
-	}
-	else if (!event.target.value !== ""){
-		document.getElementById("total").innerHTML = "9 €";
-	} 
-	else {
-		document.getElementById("total").innerHTML = "0,00 €";
-	}
-} 
-
-function segonPreu(event) {
-
-
-	if (event.target.value == "" && document.getElementById("primer").value !== ""){
-		document.getElementById("total").innerHTML = "5,50 €";
-	}
-	if (!event.target.value !== "" && document.getElementById("primer").value == ""){
-		document.getElementById("total").innerHTML = "6,50 €";
-	}
-	else if (!event.target.value !== ""){
-		document.getElementById("total").innerHTML = "9 €";
-		console.log(document.getElementById("primer").value);
-	}  
-	else {
-		document.getElementById("total").innerHTML = "0,00 €";
-	}
-}
-
 $(document).ready(function() {
     // Manejador de eventos para el doble clic en elementos con la clase "editable"
     $(document).on('dblclick', '.editable', function() {
