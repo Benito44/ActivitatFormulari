@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ca">
 <head>
-	<title>Cantina</title>
+	<title>Factures SaPa</title>
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="./Cantina.css">
+	<link rel="stylesheet" href="./Formulari.css">
 	<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script defer src="./Cantina.js"></script>
+	<script defer src="./Formulari.js"></script>
 </head>
 <body>
 	<div id="main" class="inline">		
@@ -49,9 +49,9 @@
                 <td>true</td>
                 <td>
                     <button class="boton1 btn" id="imprimir">Imprimir</button>
-                    <button class="boton1 btn" id="mostraArticles">Boton1</button>
-                    <button class="boton1 btn" id="eliminarTables">Boton2</button>
-                    <button class="boton1 btn" id="editarFormTaules">Boton3</button>
+                    <button class="boton1 btn" id="mostraArticles">Mostrar Artciles</button>
+                    <button class="boton1 btn" id="eliminarTables">Eliminar</button>
+                    <button class="boton1 btn" id="editarFormTaules">Editar</button>
                 </td>
             </tr>
         
@@ -70,9 +70,9 @@
                 <td>true</td>
                 <td>
 					<button class="boton1 btn" id="imprimir">Imprimir</button>
-                    <button class="boton1 btn" id="mostraArticles">Boton1</button>
-                    <button class="boton1 btn" id="eliminarTables">Boton2</button>
-                    <button class="boton1 btn" id="editarFormTaules">Boton3</button>
+                    <button class="boton1 btn" id="mostraArticles">Mostrar Artciles</button>
+                    <button class="boton1 btn" id="eliminarTables">Eliminar</button>
+                    <button class="boton1 btn" id="editarFormTaules">Editar</button>
                 </td>
             </tr>
         
@@ -91,9 +91,9 @@
                 <td>true</td>
                 <td>
                     <button class="boton1 btn" id="imprimir">Imprimir</button>
-                    <button class="boton1 btn" id="mostraArticles">Boton1</button>
-                    <button class="boton1 btn" id="eliminarTables">Boton2</button>
-                    <button class="boton1 btn" id="editarFormTaules">Boton3</button>
+                    <button class="boton1 btn" id="mostraArticles">Mostrar Artciles</button>
+                    <button class="boton1 btn" id="eliminarTables">Eliminar</button>
+                    <button class="boton1 btn" id="editarFormTaules">Editar</button>
                 </td>
             </tr>
         </tbody>
@@ -131,16 +131,22 @@
 				<br></br>
 				<label>NIF</label>
 				<input type="text" id="nif" pattern="\d{8}[A-Za-z]" title="Si us plau, introdueix un NIF vàlid amb 8 dígits seguits d'una lletra">
+				<br></br>
 				<label>Nom</label>
 				<input type="text" id="nombre" pattern="[A-Za-z\s]+" title="Si us plau, introdueix només lletres i espais">
+				<br></br>
 				<label for="telf">Telèfon</label>
 				<input type="tel" id="telf" name="telf" pattern="\d{1,9}" title="Si us plau, introdueix un número de telèfon vàlid amb un màxim de 9 dígits">
+				<br></br>
 				<label>E-mail</label>
 				<input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Si us plau, introdueix una adreça de correu electrònic vàlida">
+				<br></br>
 				<label>% Dte</label>
 				<input type="text" id="dte" pattern="^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$" title="Si us plau, introdueix un número vàlid entre 0 i 100">
+				<br></br>
 				<label>% IVA</label>
 				<input type="text" id="iva" pattern="^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$" title="Si us plau, introdueix un número vàlid entre 0 i 100">
+				<br></br>
 				<button id="tancar3">Guardar</button>
 			</form>
 		</div>

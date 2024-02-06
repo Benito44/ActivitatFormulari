@@ -29,17 +29,17 @@ class Factura {
                 <td tabindex="0" contenteditable="true">${this.Client}</td>
                 <td tabindex="0" contenteditable="true">${this.Telefon}</td>
                 <td tabindex="0" contenteditable="true">${this.Email}</td>
-                <td tabindex="0" contenteditable="true">${this.subtotal}</td>
-                <td tabindex="0" contenteditable="true">${this.Dte}</td>
-                <td tabindex="0" contenteditable="true">${this.Base_I}</td>
-                <td tabindex="0" contenteditable="true">${this.IVA}</td>
-                <td tabindex="0" contenteditable="true">${this.Total}</td>
+                <td>${this.subtotal}</td>
+                <td>${this.Dte}</td>
+                <td>${this.Base_I}</td>
+                <td>${this.IVA}</td>
+                <td>${this.Total}</td>
                 <td tabindex="0" contenteditable="true">${this.P}</td>
                 <td>
                 <button class="boton1 btn imprimir-btn" id="imprimir">Imprimir</button>
                 <button class="boton1 btn" id="mostraArticles">Mostra Articles</button>
-                <button class="boton1 btn" id="eliminarTables">eliminar</button>
-                <button class="boton1 btn" id="editarFormTaules">Boton3</button>
+                <button class="boton1 btn" id="eliminarTables">Eliminar</button>
+                <button class="boton1 btn" id="editarFormTaules">Editar</button>
             </td>
         </tr>
     `);
@@ -79,7 +79,7 @@ class Articulo {
                 <td tabindex="0" contenteditable="true">${this.article}</td>
                 <td tabindex="0" contenteditable="true">${this.uni}</td>
                 <td tabindex="0" contenteditable="true">${this.preu}</td>
-                <td tabindex="0" contenteditable="true">${this.subtotal}</td>
+                <td>${this.subtotal}</td>
                 <td>
                 <button class="boton1 btn" id="eliminarTables">Eliminar</button>
                 </td>
@@ -104,7 +104,9 @@ class Articulo {
 }
 
 let data; // Declare the data variable in the global scope
-let subtotal_T;
+let subtotal_T = 0;
+let numero_de_factura = 0;
+
 $(document).ready(function () {
     $("#carregarDades").click(function() {
         $("#arxiuJSON").click();
@@ -178,7 +180,9 @@ $(document).ready(function () {
     
     const resum = document.getElementById("articles");
     const menu = document.getElementById("menu");
-    
+
+
+
     function reservaF() {
         menu.close();
     };
@@ -210,7 +214,7 @@ $(document).ready(function () {
                 let preu = $(this).find('td:eq(3)').text();
                 let subtotal = uni * preu;
                 subtotal_T += subtotal; 
-                 
+
                 // Crear una instancia de la clase Articulo con los datos del artículo
                 const articulo = new Articulo(codigoArticulo, article, uni, preu, subtotal);
     
@@ -309,7 +313,6 @@ $("#guardarArticle").click(function(event) {
         let uni = $(this).find('td:eq(2)').text();
         let preu = $(this).find('td:eq(3)').text();
         let subtotal = $(this).find('td:eq(4)').text();
-
         // Crear un nuevo objeto Articulo con los datos de la fila
         let nuevoArticulo = new Articulo(codi, article, uni, preu, subtotal);
         // Obtener la fila correspondiente en allArticles2
@@ -336,6 +339,21 @@ $("#guardarArticle").click(function(event) {
     for (let codi in filastaulaArticles) {
         $("#taulaArticles tbody").append(filastaulaArticles[codi]);
     }
+    let nFac = 0;
+    nFac = numero_de_factura;
+        // Obtener la fila de la factura correspondiente en la tabla de facturas
+        var facturaRow = $('#dataTable tbody tr').filter(function() {
+            return $(this).find('td:first-child').text() === nFac.toString();
+        });
+
+        // Verificar si se encontró la factura
+        if (facturaRow.length > 0) {
+            // Actualizar el subtotal de la factura correspondiente
+            facturaRow.find('td:nth-child(7)').text(subtotal_T);
+        } else {
+            console.log("No se encontró la factura con el número: " + nFac);
+        }
+    subtotal_T = 0;
     const resum = document.getElementById("articles");
     resum.close();
 });
@@ -346,9 +364,6 @@ $(document).ready(function() {
     $("#convertirJsonBtn").click(function() {
         // Obtener los datos de la tabla y convertirlos a JSON
         let jsonData = convertirTablaAJson();
-
-        // Mostrar el JSON resultante (puedes ajustar cómo deseas mostrarlo)
-        console.log(jsonData);
     });
 
 
@@ -409,11 +424,28 @@ function convertirTablaAJson() {
         jsonData.push(facturaData);
     });
 
+            // Convertir el objeto JSON a una cadena
+            const jsonDataString = JSON.stringify(jsonData, null, 2);
+
+            // Nombre del archivo JSON
+            const filename = 'datos.json';
+
+            descargarJson(jsonDataString, filename);
+    
     return jsonData;
 }
 
 });
-
+        // Función para descargar el JSON
+        function descargarJson(jsonData, filename) {
+            // Crear un enlace temporal
+            const enlace = document.createElement('a');
+            enlace.href = URL.createObjectURL(new Blob([jsonData], { type: 'application/json' }));
+            enlace.download = filename;
+            
+            // Hacer clic en el enlace para descargar el archivo
+            enlace.click();
+        }
 $(document).ready(function () {
     // Función para obtener el número actual de la factura
     function obtenerNumeroFacturaActual() {
@@ -485,26 +517,4 @@ function obtenerUltimoNumeroFactura2 (){
     return numero_de_factura + "-" + autoincremental;
 }
 
-/*
-const fs = require('fs'); // Módulo de sistema de archivos
 
-// Objeto JSON de ejemplo
-const datos = {
-    nombre: "Ejemplo",
-    edad: 30,
-    ciudad: "Ciudad Ejemplo"
-};
-
-// Convertir el objeto JSON a formato de cadena
-const datosString = JSON.stringify(datos, null, 2);
-
-// Escribir el objeto JSON en un archivo
-fs.writeFile('datos.json', datosString, 'utf8', (err) => {
-    if (err) {
-        console.error('Error al escribir el archivo:', err);
-        return;
-    }
-    console.log('Los datos se han guardado correctamente en datos.json');
-});
-
-*/
